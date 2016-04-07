@@ -1,0 +1,82 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[bottom=2cm,top=3cm,left=3cm,right=2cm]{geometry}
+\usepackage[brazilian]{babel} % Traduz alguns termos para o português
+\usepackage[utf8]{inputenc} % Reconhece acentuação
+\usepackage{color,graphicx}
+\usepackage{enumerate}
+\usepackage{mathtools}
+
+\definecolor{olive}{RGB}{175,128,0}
+\definecolor{Aquamarine}{RGB}{0,175,175}
+
+\usepackage{setspace}
+\onehalfspacing	
+\setlength{\parindent}{30pt}
+
+\usepackage{indentfirst}
+
+\title{
+	Relatório - Aula Prática 10\\[2cm]
+	\begin{large}
+		Estudo de Caso 1 - Modelos Estatísticos e Inferência (ELE093)
+	\end{large}	}
+\author{Gustavo Vieira Costa\\Rafael Castro - 2013030210\\Thaís Matos Acácio - 2013030287}
+\date{}
+
+\begin{document}
+	\maketitle
+	
+	\vspace*{-7.5cm}
+	{\bf
+		\begin{center}
+			{\large
+				\hspace*{0cm}Universidade Federal de Minas Gerais} \\
+			\hspace*{0cm}Engenharia de Sistemas  \\
+		\end{center}
+	}
+	\vspace*{5cm}
+	
+	\section{Introdução}
+		O BMI (\textit{body mass index}, ou índice de massa corporal) é um indicador frequentemente usado em avaliações clínicas de questões relacionadas ao peso de um indivíduo.
+		
+		O professor Felipe Campelo, do Departamento de Engenharia Elétrica da UFMG, reporta estar atualmente com um valor de \textit{BMI} = 26.3\textit{kg/$m^{2}$}. Neste estudo de caso vamos buscar responder à pergunta: \textit{Os alunos do curso de Engenharia de Sistemas estão, em média, mais "acima do peso" (de acordo com o BMI) do que este professor?} Para isso, cada um dos alunos da disciplina forneceu seu peso e estatura de forma anonimizada, formando uma base de dados (amostra) com a qual pretende-se realizar a inferência estatística a respeito da população (alunos do curso de Engenharia de Sistemas).
+		
+	\section{Amostra}
+		Segue a tabela contendo os dados coletados, informados pelos alunos da turma:
+		\begin{table}[h]
+			\centering
+			\begin{tabular}{|cll|c|c|}
+				\hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				\textbf{Peso}&\textbf{Altura}&\textbf{BMI}\\ \hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				48.0   &	1.56	&	19.72387 \\ \hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				61.5   &	1.67	&	22.05170 \\ \hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				60.0   & 	1.68	&	21.25850 \\ \hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				63.0   &	1.65	&	23.14050 \\ \hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				57.0   &	1.69	&	19.95728 \\ \hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				80.0   &	1.83	&	23.88844 \\ \hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				76.0   &	1.71	&	25.99090 \\ \hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				70.0   &	1.71	&	23.93899 \\ \hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				70.0   &	1.65	&	25.71166 \\ \hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				66.0   &	1.83	&	19.70796 \\ \hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				52.0   &	1.64	&	19.33373 \\ \hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				68.0   &	1.78	&	21.46194 \\ \hline
+				\rule[-1.0ex]{0pt}{4.0ex}
+				82.5   &	1.76	&	26.63352 \\ \hline
+			\end{tabular}
+			\caption{Amostra}
+		\end{table}
+		
+\end{document}
