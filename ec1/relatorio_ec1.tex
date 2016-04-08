@@ -16,12 +16,11 @@
 \usepackage{indentfirst}
 
 \title{
-	Relatório - Aula Prática 10\\[2cm]
 	\begin{large}
-		Estudo de Caso 1 - Modelos Estatísticos e Inferência (ELE093)
+		Estudo de Caso 1: Inferência Estatística Com Uma Amostra
 	\end{large}	}
-\author{Gustavo Vieira Costa\\Rafael Castro - 2013030210\\Thaís Matos Acácio - 2013030287}
-\date{}
+\author{Gustavo Vieira Costa - 2010022003\\Rafael Castro - 2013030210\\Thaís Matos Acácio - 2013030287}
+\date{08/04/2016}
 
 \begin{document}
 	\maketitle
@@ -36,47 +35,73 @@
 	}
 	\vspace*{5cm}
 	
-	\section{Introdução}
-		O BMI (\textit{body mass index}, ou índice de massa corporal) é um indicador frequentemente usado em avaliações clínicas de questões relacionadas ao peso de um indivíduo.
-		
-		O professor Felipe Campelo, do Departamento de Engenharia Elétrica da UFMG, reporta estar atualmente com um valor de \textit{BMI} = 26.3\textit{kg/$m^{2}$}. Neste estudo de caso vamos buscar responder à pergunta: \textit{Os alunos do curso de Engenharia de Sistemas estão, em média, mais "acima do peso" (de acordo com o BMI) do que este professor?} Para isso, cada um dos alunos da disciplina forneceu seu peso e estatura de forma anonimizada, formando uma base de dados (amostra) com a qual pretende-se realizar a inferência estatística a respeito da população (alunos do curso de Engenharia de Sistemas).
-		
-	\section{Amostra}
-		Segue a tabela contendo os dados coletados, informados pelos alunos da turma:
-		\begin{table}[h]
-			\centering
-			\begin{tabular}{|cll|c|c|}
-				\hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				\textbf{Peso}&\textbf{Altura}&\textbf{BMI}\\ \hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				48.0   &	1.56	&	19.72387 \\ \hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				61.5   &	1.67	&	22.05170 \\ \hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				60.0   & 	1.68	&	21.25850 \\ \hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				63.0   &	1.65	&	23.14050 \\ \hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				57.0   &	1.69	&	19.95728 \\ \hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				80.0   &	1.83	&	23.88844 \\ \hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				76.0   &	1.71	&	25.99090 \\ \hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				70.0   &	1.71	&	23.93899 \\ \hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				70.0   &	1.65	&	25.71166 \\ \hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				66.0   &	1.83	&	19.70796 \\ \hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				52.0   &	1.64	&	19.33373 \\ \hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				68.0   &	1.78	&	21.46194 \\ \hline
-				\rule[-1.0ex]{0pt}{4.0ex}
-				82.5   &	1.76	&	26.63352 \\ \hline
-			\end{tabular}
-			\caption{Amostra}
-		\end{table}
+\section{Introdução}
+O BMI (\textit{body mass index}, ou índice de massa corporal) é um indicador frequentemente usado em avaliações clínicas de questões relacionadas ao peso de um indivíduo. Este índice é calculado como a razão entre o peso e o quadrado da estatura.
+\par O professor Felipe Campelo, do Departamento de Engenharia Elétrica da UFMG, reporta estar atualmente com um valor de \textit{BMI} = 26.3\textit{kg/$m^{2}$}. Neste estudo de caso vamos buscar responder à pergunta: \textit{Os alunos do curso de Engenharia de Sistemas estão, em média, mais "acima do peso" (de acordo com o BMI) do que este professor?} Para isso, cada um dos alunos da disciplina forneceu seu peso e estatura de forma anonimizada, formando uma base de dados com a qual pretende-se realizar a inferência estatística a respeito da população.
+	
+\section{Projeto experimental}
+O arquivo contendo o código do experimento se encontra disponível para download em \ref{download}. Para executá-lo, basta compilar o Script no RStudio e as informações completas sobre sua execução serão exibidas no console da aplicação.
+	
+\section{Coleta de dados}
+A Tabela \ref{table:amostra} contém a amostra de dados coletados, informados pelos alunos da turma, juntamente com o valor do índice BMI calculado utilizando a seguinte fórmula:
+\begin{equation}
+bmi = \frac{m}{h^{2}}
+\end{equation}
+\newline onde \textit{m} é o peso dado em kg e \textit{h} a altura dada em metros.
+	
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\rule[-1.0ex]{0pt}{4.0ex}
+\textbf{Peso}&\textbf{Altura}&\textbf{BMI}\\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+48.0   &	1.56	&	19.72387 \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+61.5   &	1.67	&	22.05170 \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+60.0   & 	1.68	&	21.25850 \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+63.0   &	1.65	&	23.14050 \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+57.0   &	1.69	&	19.95728 \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+80.0   &	1.83	&	23.88844 \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+76.0   &	1.71	&	25.99090 \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+70.0   &	1.71	&	23.93899 \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+70.0   &	1.65	&	25.71166 \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+66.0   &	1.83	&	19.70796 \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+52.0   &	1.64	&	19.33373 \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+68.0   &	1.78	&	21.46194 \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+82.5   &	1.76	&	26.63352 \\ \hline
+\end{tabular}
+\caption{Tabela de Amostras}
+\label{table:amostra}
+\end{table}
+
+\subsection{Inferência Estatística}
+O processo de inferência estatística consiste em tirar conclusões sobre uma população com base em informações extraídas de amostras da mesma. No presente estudo de caso, o parâmetro sobre o qual temos interesse é a média $\mu$ do índice BMI da população.
+\newline
+\textbf{Hipóteses de Teste}
+\par A hipótese nula $H_{0}$ assumida como verdade para construção do teste de hipóteses, é que os alunos do curso de Engenharia de Sistemas(ES) estão, em média, mais "acima do peso" que o professor (de acordo com o BMI). Portanto, $H_{0}: \mu = \mu_{0}$ e, em contrapartida, a hipótese alternativa é $H_{1}: \mu < \mu_{0}$. Sendo $\mu$ é a média amostral do experimento, e $\mu_{0}$ é o valor de referência, ou seja, BMI do professor.
+\par Sempre que se seleciona uma amostra existe uma discrepância entre a média dessa amostra e a média da população, esse fato é conhecido como erro padrão da média ou erro amostral. Com base nisso, considerando o BMI do professor como a média populacional, é possível estudar o erro amostral utilizando o teste estatístico t com n-1 graus de liberdade.
+\par O teste t foi escolhido pois não se sabe previamente qual o desvio padrão da população, o qual consideramos possuir distribuição normal. O termo "graus de liberdade" (df) se refere ao número de observações que são completamente livres para variar: Como estamos estudando uma única amostra: $df = n – 1$.
+
+\textbf{Premissas do Teste}
+\par O nível de significância, $\alpha$, representa a probabilidade de erro tipo I, ou seja, a probabilidade de rejeitarmos a hipótese nula quando ela é efetivamente verdadeira. Pensando em uma taxa de erro aceitável para o domínio do problema, fixamos $\alpha = 0.05$. Como consequência desse valor, teremos um nível de confiança $(1 - \alpha) = 0.95$, que representa a taxa de sucesso do método.
+\par A potência do teste $(1 - \beta)$ tem como objetivo conhecer o quanto o teste de hipóteses controla um erro do tipo II ou, qual a probabilidade de rejeitar a hipótese nula se realmente for falsa.
+
+\section{Análise dos Resultados}
+
+\section{Conclusão}
+
+\section{Bibliografia}
 		
 \end{document}
