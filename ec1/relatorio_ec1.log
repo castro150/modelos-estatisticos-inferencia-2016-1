@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.4.6)  7 APR 2016 17:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.4.6)  8 APR 2016 17:00
 entering extended mode
 **./relatorio_ec1.tex
 (relatorio_ec1.tex
@@ -441,6 +441,31 @@ LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
 \l_MT_above_shortintertext_sep=\dimen130
 \l_MT_below_shortintertext_sep=\dimen131
 )
+("D:\Arquivos de Programas\MiKTeX\tex\latex\listings\listings.sty"
+\lst@mode=\count108
+\lst@gtempboxa=\box28
+\lst@token=\toks24
+\lst@length=\count109
+\lst@currlwidth=\dimen132
+\lst@column=\count110
+\lst@pos=\count111
+\lst@lostspace=\dimen133
+\lst@width=\dimen134
+\lst@newlines=\count112
+\lst@lineno=\count113
+\lst@maxwidth=\dimen135
+
+("D:\Arquivos de Programas\MiKTeX\tex\latex\listings\lstmisc.sty"
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count114
+\lst@skipnumbers=\count115
+\lst@framebox=\box29
+)
+("D:\Arquivos de Programas\MiKTeX\tex\latex\listings\listings.cfg"
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+
 ("D:\Arquivos de Programas\MiKTeX\tex\latex\setspace\setspace.sty"
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
@@ -499,42 +524,79 @@ LaTeX Font Info:    ... okay on input line 26.
 
 ("D:\Arquivos de Programas\MiKTeX\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count108
-\scratchdimen=\dimen132
-\scratchbox=\box28
-\nofMPsegments=\count109
-\nofMParguments=\count110
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count111
-\MPscratchDim=\dimen133
-\MPnumerator=\count112
-\makeMPintoPDFobject=\count113
-\everyMPtoPDFconversion=\toks25
+\scratchcounter=\count116
+\scratchdimen=\dimen136
+\scratchbox=\box30
+\nofMPsegments=\count117
+\nofMParguments=\count118
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count119
+\MPscratchDim=\dimen137
+\MPnumerator=\count120
+\makeMPintoPDFobject=\count121
+\everyMPtoPDFconversion=\toks26
 )
+\c@lstlisting=\count122
 
-LaTeX Warning: `h' float specifier changed to `ht'.
 
-[1
+LaTeX Warning: Reference `download' on page 1 undefined on input line 44.
 
-{C:/Users/Rafael/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-(relatorio_ec1.aux) ) 
+("D:\Arquivos de Programas\MiKTeX\tex\latex\listings\lstlang1.sty"
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+)
+("D:\Arquivos de Programas\MiKTeX\tex\latex\listings\lstlang2.sty"
+File: lstlang2.sty 2015/06/04 1.6 listings language file
+)
+("D:\Arquivos de Programas\MiKTeX\tex\latex\listings\lstlang3.sty"
+File: lstlang3.sty 2015/06/04 1.6 listings language file
+)
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 49.
+
+("D:\Arquivos de Programas\MiKTeX\tex\latex\base\omlcmr.fd"
+File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 49.
+LaTeX Font Info:    Font shape `OML/cmr/bx/n' in size <12> not available
+(Font)              Font shape `OML/cmm/b/it' tried instead on input line 49.
+ [1
+
+{C:/Users/Rafael/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 75.
+
+("D:\Arquivos de Programas\MiKTeX\tex\latex\base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 75.
+ [2]
+
+LaTeX Warning: Command \textendash invalid in math mode on input line 129.
+
+[3] [4] (relatorio_ec1.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 3554 strings out of 493634
- 48224 string characters out of 3142122
- 126632 words of memory out of 3000000
- 6892 multiletter control sequences out of 15000+200000
- 10280 words of font info for 37 fonts, out of 3000000 for 9000
+ 6023 strings out of 493634
+ 79377 string characters out of 3142122
+ 194401 words of memory out of 3000000
+ 9331 multiletter control sequences out of 15000+200000
+ 10893 words of font info for 39 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 33i,10n,23p,660b,226s stack positions out of 5000i,500n,10000p,200000b,50000s
-<D:/Arquivos de Programas/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmbx12.pfb><D:/Arquivos de Programas/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmmi12.pfb><D:/Arquivos de Programas/MiKTeX/fonts/type1/public/amsfonts/cm/cm
-r12.pfb><D:/Arquivos de Programas/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.p
-fb><D:/Arquivos de Programas/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:
-/Arquivos de Programas/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on relatorio_ec1.pdf (2 pages, 75450 bytes).
+ 33i,9n,42p,609b,2292s stack positions out of 5000i,500n,10000p,200000b,50000s
+<D:/Arquivos de Programas/MiKTeX/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><
+D:/Arquivos de Programas/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/A
+rquivos de Programas/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><D:/Arqui
+vos de Programas/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><D:/Arquivos
+ de Programas/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/Arquivos de P
+rogramas/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/Arquivos de Program
+as/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Arquivos de Programas/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on relatorio_ec1.pdf (4 pages, 106190 bytes).
 PDF statistics:
- 33 PDF objects out of 1000 (max. 8388607)
+ 47 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
