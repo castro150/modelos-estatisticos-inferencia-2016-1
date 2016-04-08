@@ -41,6 +41,7 @@ O BMI (\textit{body mass index}, ou índice de massa corporal) é um indicador f
 \par O professor Felipe Campelo, do Departamento de Engenharia Elétrica da UFMG, reporta estar atualmente com um valor de \textit{BMI} = 26.3\textit{kg/$m^{2}$}. Neste estudo de caso vamos buscar responder à pergunta: \textit{Os alunos do curso de Engenharia de Sistemas estão, em média, mais "acima do peso" (de acordo com o BMI) do que este professor?} Para isso, cada um dos alunos da disciplina forneceu seu peso e estatura de forma anonimizada, formando uma base de dados com a qual pretende-se realizar a inferência estatística a respeito da população.
 	
 \section{Projeto experimental}
+\label{sec:projeto-experimental}
 O arquivo contendo o código do experimento se encontra disponível para download em \ref{download}. Para executá-lo, basta compilar o Script no RStudio e as informações completas sobre sua execução serão exibidas no console da aplicação.
 
 Segue o código:
@@ -133,6 +134,18 @@ O processo de inferência estatística consiste em tirar conclusões sobre uma p
 \par A potência do teste $(1 - \beta)$ tem como objetivo conhecer o quanto o teste de hipóteses controla um erro do tipo II ou, qual a probabilidade de rejeitar a hipótese nula se realmente for falsa.
 
 \section{Análise dos Resultados}
+Executando o algoritmo apresentado na seção~\ref{sec:projeto-experimental} (Projeto Experimental), obtemos os seguintes valores para os parâmetros calculados:
+
+\begin{lstlisting}[language=R]
+Valor de mu: 26.3
+Valor de alpha: 0.05
+Numero de amostras: 13
+Media amostral: 22.5230002789605
+Desvio padrao: 2.56258202347936
+Tamanho de efeito: -3.77699972103948
+T critico: -2.17881282966723
+Intervalo de confianca: 20.9744474604701 a 24.0715530974509
+\end{lstlisting}
 
 \section{Conclusão}
 
