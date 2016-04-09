@@ -184,11 +184,11 @@ T0: -5.31423620272294
 Intervalo de confianca: 20.9744474604701 a 24.0715530974509
 \end{lstlisting}
 
+\par Podemos perceber que os dados são estatisticamente significantes no nível $\alpha$, pois o \textit{valor P} $< \alpha$.
 \par Usando a média amostral $\bar{x}$ e o desvio padrão amostral $s$, encontramos a estatística t para hipótese e o valor encontrado se encontra na região de rejeição do intervalo de confiança, ou seja, $t_{0} < t_{\alpha/2}$, portanto rejeitamos a hipótese nula.
 
 \section{Conclusão}
 \par Como o intervalo de confiança da média do BMI dos alunos de Engenharia de Sistemas calculado na rotina apresentada, com nível de confiança de 95\% não contém o valor de $\mu_{0}$ BMI do professor Felipe Campelo, podemos concluir que os alunos de Engenharia de Sistemas não estão, em média, mais "acima do peso" (de acordo com o BMI) do que este professor.
-
 \par Para o teste de potência, após rodar o algoritmo do projeto experimental, executamos o seguinte comando, com delta igual a 2, como discutido na seção~\ref{sec:estrategia-inferencia}, nas premissas do teste:
 
 \begin{lstlisting}[language=R]
@@ -208,7 +208,7 @@ power = 0.7336574
 alternative = two.sided
 \end{lstlisting}
 
-\par Como se pode notar pelo resultado, a potência do teste é 0.7336574. Como forma de melhoria, executamos o seguinte algoritmo para sabermos quantas amostras precisamos para ter uma potência igual a 0.9:
+\par Como se pode notar pelo resultado, a potência do teste é 0.7336574. Como forma de melhoria, executamos o seguinte algoritmo para sabermos quantas amostras precisaríamos para ter uma potência igual a 0.9:
 
 \begin{lstlisting}[language=R]
 power.t.test(power=0.9, delta=2, sd=s,
@@ -228,8 +228,14 @@ power = 0.9
 alternative = two.sided
 \end{lstlisting}
 
-\par Sendo assim, precisaríamos de 20 amostrar para termos um teste de cerca de 0.9 de potência.
+\par Sendo assim, precisaríamos de 20 amostras para termos um teste de cerca de 0.9 de potência.
 
-\section{Bibliografia}
+\begin{thebibliography}{5}
+\bibitem{1}{\url{https://github.com/fcampelo/Design-and-Analysis-of-Experiments}}
+\bibitem{2}{Estatística Aplicada e Probabilidade para Engenheiros (4ª edição) - Montgomery}
+\bibitem{3}{A Estatística Básica e Sua Prática (6ª edição) - David S. Moore, William I. Nortz, Michael A. Fligner}
+\bibitem{4}{\url{https://www.youtube.com/watch?v=SacXljL9dKQ&nohtml5=False}}
+\bibitem{5}{\url{https://www.youtube.com/watch?v=TJbnkmiZiRU&nohtml5=False}}
+\end{thebibliography}		
 		
 \end{document}
