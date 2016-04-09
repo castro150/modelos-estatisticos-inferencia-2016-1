@@ -5,6 +5,12 @@
 \usepackage{color,graphicx}
 \usepackage{enumerate}
 \usepackage{mathtools}
+\usepackage{listings}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,     
+	urlcolor=blue
+}
 
 \definecolor{olive}{RGB}{175,128,0}
 \definecolor{Aquamarine}{RGB}{0,175,175}
@@ -37,13 +43,11 @@
 	
 \section{Introdução}
 O BMI (\textit{body mass index}, ou índice de massa corporal) é um indicador frequentemente usado em avaliações clínicas de questões relacionadas ao peso de um indivíduo. Este índice é calculado como a razão entre o peso e o quadrado da estatura.
-\par O professor Felipe Campelo, do Departamento de Engenharia Elétrica da UFMG, reporta estar atualmente com um valor de \textit{BMI} = 26.3\textit{kg/$m^{2}$}. Neste estudo de caso vamos buscar responder à pergunta: \textit{Os alunos do curso de Engenharia de Sistemas estão, em média, mais "acima do peso" (de acordo com o BMI) do que este professor?} Para isso, cada um dos alunos da disciplina forneceu seu peso e estatura de forma anonimizada, formando uma base de dados com a qual pretende-se realizar a inferência estatística a respeito da população.
-	
-\section{Projeto experimental}
-O arquivo contendo o código do experimento se encontra disponível para download em \ref{download}. Para executá-lo, basta compilar o Script no RStudio e as informações completas sobre sua execução serão exibidas no console da aplicação.
+\par O professor Felipe Campelo, do Departamento de Engenharia Elétrica da UFMG, reporta estar atualmente com um valor de \textit{BMI} = 26.3\textit{kg/$m^{2}$}. Neste estudo de caso vamos buscar responder à pergunta: \textit{Os alunos do curso de Engenharia de Sistemas estão, em média, mais "acima do peso" (de acordo com o BMI) do que este professor?} Para isso, cada um dos alunos da disciplina forneceu seu peso e estatura de forma anonimizada, formando uma base de dados com a qual pretende-se realizar a inferência estatística a respeito da população.	
 	
 \section{Coleta de dados}
-A Tabela \ref{table:amostra} contém a amostra de dados coletados, informados pelos alunos da turma, juntamente com o valor do índice BMI calculado utilizando a seguinte fórmula:
+Resultados a partir de uma amostra aleatória obedecem as leis de probabilidade, as quais governam o comportamento aleatório e permitem inferência confiável sobre a população.
+\par A Tabela \ref{table:amostra} contém a amostra de dados coletados, informados pelos alunos da turma, juntamente com o valor do índice BMI calculado utilizando a seguinte fórmula:
 \begin{equation}
 bmi = \frac{m}{h^{2}}
 \end{equation}
@@ -86,19 +90,95 @@ bmi = \frac{m}{h^{2}}
 \label{table:amostra}
 \end{table}
 
-\subsection{Inferência Estatística}
-O processo de inferência estatística consiste em tirar conclusões sobre uma população com base em informações extraídas de amostras da mesma. No presente estudo de caso, o parâmetro sobre o qual temos interesse é a média $\mu$ do índice BMI da população.
+\par A partir dos índices BMI calculados podemos obter a média amostral $\bar{x}$ e o desvio-padrão da amostra $s$, os quais quais são estimativas da média $\mu$ e do desvio-padrão $\sigma$ da população completa.
+\par De acordo com o \textit{Teorema do Limite Central}, se a amostra tiver tamanho $n$ suficiente, a distribuição amostral de $\bar{x}$ é aproximadamente Normal.
+\begin{center}
+$\bar{x}$ é aproximadamente $N(\mu,\frac{\sigma}{\sqrt{n}})$
+\end{center}
+\par Neste experimento, iremos considerar que o tamanho da amostra $n$ é suficiente, pois assim poderemos utilizar os cálculos da probabilidade Normal para responder a questões sobre médias amostrais de muitas observações. Mais observações serão necessárias se a forma da distribuição populacional estiver longe da Normal.
+
+\section{Estratégia de Inferência}
+O processo de inferência estatística consiste em tirar conclusões sobre uma população com base em informações extraídas de amostras da mesma. No presente estudo de caso, o parâmetro sobre o qual temos interesse é a média $\mu$ do índice BMI da população(alunos de Engenharia de Sistemas).
+\newline
 \newline
 \textbf{Hipóteses de Teste}
-\par A hipótese nula $H_{0}$ assumida como verdade para construção do teste de hipóteses, é que os alunos do curso de Engenharia de Sistemas(ES) estão, em média, mais "acima do peso" que o professor (de acordo com o BMI). Portanto, $H_{0}: \mu = \mu_{0}$ e, em contrapartida, a hipótese alternativa é $H_{1}: \mu < \mu_{0}$. Sendo $\mu$ é a média amostral do experimento, e $\mu_{0}$ é o valor de referência, ou seja, BMI do professor.
-\par Sempre que se seleciona uma amostra existe uma discrepância entre a média dessa amostra e a média da população, esse fato é conhecido como erro padrão da média ou erro amostral. Com base nisso, considerando o BMI do professor como a média populacional, é possível estudar o erro amostral utilizando o teste estatístico t com n-1 graus de liberdade.
-\par O teste t foi escolhido pois não se sabe previamente qual o desvio padrão da população, o qual consideramos possuir distribuição normal. O termo "graus de liberdade" (df) se refere ao número de observações que são completamente livres para variar: Como estamos estudando uma única amostra: $df = n – 1$.
-
+\par O teste estatístico é planejado para avaliar a força da evidência \textit{contra} a hipótese nula $H_{0}$. Usualmente, a hipótese nula é uma afirmativa de "nenhum efeito". A afirmativa sobre a população \textit{a favor} da qual estamos tentando achar evidência é a hipótese alternativa $H_{1}$. Logo, as hipóteses são:
+\begin{equation}
+\left \{
+\begin{array}{cc}
+H_{0}: & \mu = \mu_{0} \\
+H_{1}: & \mu > \mu_{0} \\
+\end{array}
+\right.
+\end{equation}
+\newline sendo $\mu$ a média da população, e $\mu_{0}$ o valor de referência, ou seja, BMI do \linebreak professor ($26.3 kg/m^{2}$).
+\par Sempre que se seleciona uma amostra existe uma discrepância entre a média dessa amostra e a média da população, esse fato é conhecido como erro padrão da média ou erro amostral. Com base nisso, considerando $\mu_{0}$ como a média populacional, é possível estudar o erro amostral utilizando o teste estatístico t com $n-1$ graus de liberdade.
+\par O teste t foi escolhido pois não se sabe previamente qual o desvio padrão da população, o qual consideramos possuir distribuição normal. O termo "graus de liberdade" se refere ao número de observações que são completamente livres para variar.
+\newline
+\newline
 \textbf{Premissas do Teste}
-\par O nível de significância, $\alpha$, representa a probabilidade de erro tipo I, ou seja, a probabilidade de rejeitarmos a hipótese nula quando ela é efetivamente verdadeira. Pensando em uma taxa de erro aceitável para o domínio do problema, fixamos $\alpha = 0.05$. Como consequência desse valor, teremos um nível de confiança $(1 - \alpha) = 0.95$, que representa a taxa de sucesso do método.
-\par A potência do teste $(1 - \beta)$ tem como objetivo conhecer o quanto o teste de hipóteses controla um erro do tipo II ou, qual a probabilidade de rejeitar a hipótese nula se realmente for falsa.
+\begin{itemize}
+\item O \textbf{nível de significância}, $\alpha$, representa a probabilidade de erro tipo I, ou seja, a probabilidade de rejeitarmos a hipótese nula quando ela é efetivamente verdadeira. Pensando em uma taxa de erro aceitável para o domínio do problema, fixamos $\alpha = 0.05$.
+\item $\beta$ representa a \textbf{probabilidade de erro tipo II}, ou seja, aceitarmos a hipótese nula quando ela é efetivamente falsa. Resolvemos permitir um erro tipo II de $20\%$ ($\beta = 0.2$), considerando que esse tipo de erro tem menor impacto negativo do que o erro tipo I.
+\item \textbf{Nível de confiança} ($1 - \alpha$) tem como objetivo conhecer o quanto o teste de hipóteses controla um erro do tipo I, ou qual a probabilidade de aceitar a hipótese nula se realmente for verdadeira. 
+\item O \textbf{poder do teste} ($1 - \beta$) tem como objetivo conhecer o quanto o teste de hipóteses controla um erro do tipo II ou, qual a probabilidade de rejeitar a hipótese nula se realmente for falsa.
+\item Definimos o menor tamanho de efeito de importância prática como 2, tomando como referência o intervalo normal do BMI, o qual varia de 18.5 a 24.99.
+\end{itemize}
+
+\par O \textbf{intervalo de confiança} representa a probabilidade do BMI de um aluno escolhido aleatoriamente se encontrar entre os valores limites, inferior e superior, calculados pela distribuição t-student com 12 graus de liberdade.
+\par A probabilidade, calculada supondo-se $H_{0}$ verdadeira, de que a estatística de teste assuma um valor tão ou mais extremo do que o valor realmente observado é chamada de \textbf{valor P}.
+
+\section{Projeto experimental}
+\label{sec:projeto-experimental}
+O código do experimento e o arquivo com os dados da amostra utilizada se encontram disponíveis para download em \url{https://goo.gl/23J2Sp}. Para executá-lo, basta compilar o Script no RStudio e as informações completas sobre sua execução serão exibidas no console da aplicação.
+\par Segue o código:
+
+\begin{lstlisting}[language=R]
+> mu <- 26.3;
++ alpha <- 0.05;
++	
++ #Ler dados de entrada
++ dados <- read.table("data.csv", header=FALSE, sep=";");
+	
+
++ #Calculo do BMI
++ BMI <- dados[1]/(dados[2]^2);
++	
++ #Numero de Amostras
++ n <- nrow(BMI);
++	
++ #Media
++ x_bar <- mean(as.matrix(BMI));
++	
++ #Tamanho de Efeito
++ size_effect <- x_bar - mu;
++	
++ #Desvio padrao
++ s <- sqrt(sum((BMI-x_bar)^2)/(n-1));
++	
++ #t critico
++ t_alpha <- qt(alpha/2, n-1);
++	
++ #Intervalo de confianca
++ inter_min <- x_bar + (s*t_alpha / (sqrt(n)));
++ inter_max <- x_bar - (s*t_alpha / (sqrt(n)));	
+\end{lstlisting}
+\par Através do código acima, foi possível obter os resultados necessários para comparação com nossa hipótese inicial.
 
 \section{Análise dos Resultados}
+Executando o algoritmo apresentado na seção~\ref{sec:projeto-experimental} (Projeto Experimental), obtemos os seguintes valores para os parâmetros calculados:
+
+\begin{lstlisting}[language=R]
+Valor de mu: 26.3
+Valor de alpha: 0.05
+Numero de amostras: 13
+Media amostral: 22.5230002789605
+Desvio padrao: 2.56258202347936
+Tamanho de efeito: -3.77699972103948
+T critico: -2.17881282966723
+Intervalo de confianca: 20.9744474604701 a 24.0715530974509
+\end{lstlisting}
+
 
 \section{Conclusão}
 

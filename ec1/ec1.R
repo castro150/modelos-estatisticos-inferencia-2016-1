@@ -3,7 +3,7 @@
 #                                      #
 #Equipe: Gustavo Vieira Costa          #
 #        Rafael Carneiro de Castro     #
-#        Tha�ís Matos Acácio            #
+#        Thaís Matos Acácio            #
 ########################################
 
 mu <- 26.3;
@@ -12,34 +12,34 @@ alpha <- 0.05;
 #Ler dados de entrada
 dados <- read.table("data.csv", header=FALSE, sep=";");
 
-#CÃ¡lculo do BMI
+#Cálculo do BMI
 BMI <- dados[1]/(dados[2]^2);
 
-#NÃºmero de Amostras
+#Número de Amostras
 n <- nrow(BMI);
 
-#MÃ©dia
+#Média
 x_bar <- mean(as.matrix(BMI));
 
 #Tamanho de Efeito
 size_effect <- x_bar - mu;
 
-#Desvio padrÃ£o
+#Desvio padrão
 s <- sqrt(sum((BMI-x_bar)^2)/(n-1));
 
-#t crÃ�tico
+#t crítico
 t_alpha <- qt(alpha/2, n-1);
 
-#Intervalo de confianÃ§a
+#Intervalo de confiança
 inter_min <- x_bar + (s*t_alpha / (sqrt(n)));
 inter_max <- x_bar - (s*t_alpha / (sqrt(n)));
 
 message('Valor de mu: ', mu);
 message('Valor de alpha: ', alpha);
-message('NÃºmero de amostras: ', n);
-message('MÃ©dia amostral: ', x_bar);
-message('Desvio padrÃ£o: ', s);
+message('Número de amostras: ', n);
+message('Média amostral: ', x_bar);
+message('Desvio padrão: ', s);
 message('Tamanho de efeito: ', size_effect);
-message('T crÃ�tico: ', t_alpha);
-message('Intervalo de confianÃ§a: ', inter_min, ' a ', inter_max);
+message('T crítico: ', t_alpha);
+message('Intervalo de confiança: ', inter_min, ' a ', inter_max);
 
