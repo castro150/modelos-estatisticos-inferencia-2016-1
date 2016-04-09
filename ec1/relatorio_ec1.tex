@@ -130,7 +130,7 @@ H_{1}: & \mu > \mu_{0} \\
 
 \section{Projeto experimental}
 \label{sec:projeto-experimental}
-O código do experimento e o arquivo com os dados da amostra utilizada se encontram disponíveis para download em \url{https://goo.gl/23J2Sp}. Para executá-lo, basta compilar o Script no RStudio e as informações completas sobre sua execução serão exibidas no console da aplicação.
+O código do experimento e o arquivo com os dados da amostra utilizada se encontram disponíveis para download em \url{https://goo.gl/tWi1GV}. Para executá-lo, basta compilar o Script no RStudio e as informações completas sobre sua execução serão exibidas no console da aplicação.
 \par Segue o código:
 
 \begin{lstlisting}[language=R]
@@ -158,6 +158,9 @@ O código do experimento e o arquivo com os dados da amostra utilizada se encont
 +	
 + #t critico
 + t_alpha <- qt(alpha/2, n-1);
++
++ #T0
++ t0 <- (x_bar - mu)/(s/sqrt(n));
 +	
 + #Intervalo de confianca
 + inter_min <- x_bar + (s*t_alpha / (sqrt(n)));
@@ -176,6 +179,7 @@ Media amostral: 22.5230002789605
 Desvio padrao: 2.56258202347936
 Tamanho de efeito: -3.77699972103948
 T critico: -2.17881282966723
+T0: -5.31423620272294
 Intervalo de confianca: 20.9744474604701 a 24.0715530974509
 \end{lstlisting}
 
