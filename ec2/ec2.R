@@ -16,6 +16,11 @@ bmiEngSis <- sis$Weight.kg/((sis$Height.cm/100)^2);
 bmiPpgee <- ppgee$Weight.kg/((ppgee$Height.cm/100)^2);
 # bmi <- dados$Weight.kg/((dados$Height.cm/100)^2);
 
+#Boxplot
+boxplot(bmiEngSis, bmiPpgee, ylab="BMI",
+         names=c("Eng. Sistemas","PPGEE"), col = "lightgray",
+         main="BMI para Eng. Sistemas e PPGEE (Pós-Graduação)");
+
 # Executar teste de igualdade de variancia
 var.test(bmiEngSis, bmiPpgee, alternitive="two.sided",conf.level=0.95)
 
