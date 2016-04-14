@@ -6,9 +6,11 @@
 \usepackage{enumerate}
 \usepackage{mathtools}
 \usepackage{listings}
-\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage[section]{placeins}
+\usepackage[hidelinks=true]{hyperref}
 \hypersetup{
-	colorlinks=true,     
+	colorlinks=false,     
 	urlcolor=blue
 }
 
@@ -23,7 +25,7 @@
 
 \title{
 	\begin{large}
-		Estudo de Caso 02: \textit{Comparação do BMI médio de alunos de Eng. de Sistemas e do PPGEE-UFMG}
+		Estudo de Caso 02: Comparação de Duas Amostras
 	\end{large}	}
 \author{Gustavo Vieira Costa - 2010022003\\Rafael Castro - 2013030210\\Thaís Matos Acácio - 2013030287}
 \date{08/04/2016}
@@ -42,8 +44,109 @@
 	\vspace*{5cm}
 	
 \section{Introdução}
-	
+O BMI (\textit{body mass index}, ou índice de massa corporal) é um indicador frequentemente usado em avaliações clínicas de questões relacionadas ao peso de um indivíduo. Este índice é calculado como a razão entre o peso e o quadrado da estatura.
+\par O objetivo desse experimento é comparar o BMI médio de duas populações de estudantes: alunos de graduação em Engenharia de Sistemas e alunos de pós-graduação em Engenharia Elétrica, com interesse de relacionar o efeito do curso na forma física dos alunos.
+
 \section{Coleta de dados}
+Resultados a partir de uma amostra aleatória obedecem as leis de probabilidade, as quais governam o comportamento aleatório e permitem inferência confiável sobre a população.
+\par A Tabela \ref{table:amostra} contém a amostra de dados coletados, informados pelos alunos de cada turma, juntamente com o valor do índice BMI calculado utilizando a seguinte fórmula:
+\begin{equation}
+bmi = \frac{m}{h^{2}}
+\end{equation}
+\newline onde \textit{m} é o peso dado em kg e \textit{h} a altura dada em metros.
+\pagebreak
+\begin{longtable}{|c|c|c|c|c|}
+%\begin{tabular}{|c|c|c|c|c|}
+\hline
+\rule[-1.0ex]{0pt}{4.0ex}
+\textbf{Curso}&\textbf{ID}&\textbf{Altura(m)}&\textbf{Peso(kg)}&\textbf{BMI}\\ \hline
+\endhead
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST1&1.83&77& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST2&1.67&56& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST3&1.88&86& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST4&1.77&78& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST5&1.74&78& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST6&1.98&113& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST7&1.70&77& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST8&1.81&78& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST9&1.55&54& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST10&1.82&96& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST11&1.81&73& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST12&1.65&61& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST13&1.65&60& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST14&1.73&76& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST15&1.75&85& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST16&1.81&74& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST17&1.82&67& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST18&1.70&64& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST19&1.65&64& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST20&1.75&88& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST21&1.85&96& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST22&1.83&85& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST23&1.78&58& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST24&1.70&72& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST25&1.70&65& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST26&1.72&98& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST27&1.67&53& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+PPGEE&PG-ST28&1.79&78& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+EngSis&ES-ST1&1.56&48& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+EngSis&ES-ST2&1.67&61.5& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+EngSis&ES-ST3&1.68&60& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+EngSis&ES-ST4&1.65&63& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+EngSis&ES-ST5&1.69&57& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+EngSis&ES-ST6&1.83&80& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+EngSis&ES-ST7&1.71&76& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+EngSis&ES-ST8&1.71&70& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+EngSis&ES-ST9&1.65&70& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+EngSis&ES-ST10&1.83&66& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+EngSis&ES-ST11&1.64&52& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+EngSis&ES-ST12&1.78&68& \\ \hline
+\rule[-1.0ex]{0pt}{4.0ex}
+EngSis&ES-ST13&1.76&82.5& \\ \hline
+%\end{tabular}
+\caption{Tabela de Amostras}
+\label{table:amostra}
+\end{longtable}
 
 \section{Estratégia de Inferência}
 \label{sec:estrategia-inferencia}
