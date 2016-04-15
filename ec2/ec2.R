@@ -14,7 +14,6 @@ ppgee <- dados[which(dados$Course=='PPGEE'),];
 #Cálculo do BMI
 bmiEngSis <- sis$Weight.kg/((sis$Height.cm/100)^2);
 bmiPpgee <- ppgee$Weight.kg/((ppgee$Height.cm/100)^2);
-# bmi <- dados$Weight.kg/((dados$Height.cm/100)^2);
 
 #Boxplot
 boxplot(bmiEngSis, bmiPpgee, ylab="BMI",
@@ -44,8 +43,8 @@ t.test(bmiEngSis, bmiPpgee,
 #P-Value > alpha não rejeita a hipótese nula.
 
 
-# Estimar tamanho de efeito = 1.5
-# Calcular a potência do teste
+# Estimativa do tamanho de efeito = 1.5
+# Calcular a potência do teste para variância igual
 require("pwr");
 pwr.t2n.test(n1 = 13,
              n2 = 28,
@@ -67,7 +66,7 @@ pwr.t2n.test(power = 0.8,
              sig.level = 0.05,
              alternative = "two.sided");
 
-# Dá pra fazer o power.t.test com o menor tamanho amostral e maior sd
+# Calcular a potência do teste para variância diferente
 power.t.test(n=13,
              delta=1.5,
              sd=sd(bmiEngSis),
