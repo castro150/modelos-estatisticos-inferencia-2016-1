@@ -154,7 +154,7 @@ EngSis&ES-ST13&1.76&82.5&26.63 \\ \hline
 \par De acordo com o \textit{Teorema do Limite Central}, se a amostra tiver tamanho $n$ suficiente, a distribuição amostral de $\bar{x}$ é aproximadamente Normal. Nesse caso, iremos assumir que $n_{1}$ e $n_{2}$ são suficientes, conforme o gráfico de normalidade presente na figura \ref{fig:normal}.
 \begin{figure}[h]
 \centering
-\includegraphics{img/plot-normalidade.png}
+\includegraphics[scale=0.8]{img/plot-normalidade.png}
 \caption{Normalidade das amostras}
 \label{fig:normal}
 \end{figure}
@@ -164,13 +164,21 @@ EngSis&ES-ST13&1.76&82.5&26.63 \\ \hline
 O processo de inferência estatística consiste em tirar conclusões sobre uma população com base em informações extraídas de amostras da mesma. No presente estudo de caso, os parâmetros sobre os quais temos interesse são as médias $\mu_{1}$ e $\mu_{2}$ do índice BMI das populações: alunos de graduação em Engenharia de Sistemas e alunos de pós graduação em Engenharia Elétrica.
 \newline
 \newline
+\textbf{Premissas do Teste}
+\begin{itemize}
+\item O \textbf{nível de significância}($\alpha$), representa a probabilidade de erro tipo I, ou seja, a probabilidade de rejeitarmos a hipótese nula quando ela é efetivamente verdadeira. Pensando em uma taxa de erro aceitável para o domínio do problema, fixamos $\alpha = 0.05$.
+\item \textbf{Nível de confiança} ($1 - \alpha$) tem como objetivo conhecer o quanto o teste de hipóteses controla um erro do tipo I, ou qual a probabilidade de aceitar a hipótese nula se realmente for verdadeira.
+\item O menor \textbf{tamanho de efeito} de importância prática($\delta^*$) como 1.5, tomando como referência os valores da tabela de classificação do BMI (30\% do tamanho máximo das categorias).
+\end{itemize}
+\par A probabilidade, calculada supondo-se $H_{0}$ verdadeira, de que a estatística de teste assuma um valor tão ou mais extremo do que o valor realmente observado é chamada de \textbf{valor P}.
+
 \textbf{Hipóteses de Teste}
 \par O teste estatístico é planejado para avaliar a força da evidência \textit{contra} a hipótese nula $H_{0}$. Usualmente, a hipótese nula é uma afirmativa de "nenhum efeito". A afirmativa sobre a população \textit{a favor} da qual estamos tentando achar evidência é a hipótese alternativa $H_{1}$. Logo, as hipóteses são:
 \begin{equation}
 \left \{
 \begin{array}{cc}
 H_{0}: & \mu_{1} = \mu_{2} \\
-H_{1}: & \mu_{1} > \mu_{2} \\
+H_{1}: & \mu_{1} \neq \mu_{2} \\
 \end{array}
 \right.
 \end{equation}
@@ -179,18 +187,42 @@ H_{1}: & \mu_{1} > \mu_{2} \\
 \begin{equation}
 \left \{
 \begin{array}{cc}
-H_{0}: var_{1} = var_{2} \\
-H_{1}: var_{2} = var_{1} \\
+H_{0}: \sigma_{1}^{2} = \sigma_{2}^{2} \\
+H_{1}: \sigma_{1}^{2} \neq \sigma_{2}^{2} \\
 \end{array}
 \right.
 \end{equation}
-Os resultados do teste F definem se utilizaremos o teste t para duas amostras ou o teste welch.
+Os resultados do teste F definem se utilizaremos o teste t para duas amostras, caso onde as variâncias podem ser consideradas iguais(hipótese nula não rejeitada), ou o teste Welch, caso contrário.
 \newline
-\textbf{Premissas do Teste}
+\newline
+\textit{F test to compare two variances} \newline
+data:  bmiEngSis and bmiPpgee \newline
+F = 0.5822, num df = 12, denom df = 27, p-value = 0.3256 \newline
+alternative hypothesis: true ratio of variances is not equal to 1 \newline
+95 percent confidence interval: \newline
+ 0.2358306 1.7396886 \newline
+sample estimates: \newline
+ratio of variances \newline
+         0.5822072 \newline
 
+\par Como o valor observado de F não pertence à região crítica encontrada pelo \textit{var.test} e o p-value é maior que o nível de significância $\alpha$, então não existem evidências suficientes para rejeitar H0, portanto iremos considerar a igualdade das variâncias e utilizar o teste t para duas amostras.
 
 \section{Projeto experimental}
 \label{sec:projeto-experimental}
+Aplicando o teste t bilateral para duas amostras, obtemos o seguinte resultado:
+\newline
+\newline
+\textit{Two Sample t-test} \newline
+data:  bmiEngSis and bmiPpgee \newline
+t = -1.7259, df = 39, p-value = 0.09228 \newline
+alternative hypothesis: true difference in means is not equal to 0 \newline
+95 percent confidence interval: \newline
+ -3.9443195  0.3122583 \newline
+sample estimates: \newline
+mean of x mean of y \newline
+ 22.52300  24.33903 \newline
+
+\par Como não sabemos a variância real das populações e consideramos igualdade de variâncias com base nos resultados do teste F, concluímos que não existem evidências suficientes para rejeitar a hipótese nula, portanto podemos considerar igualdade das médias.
 
 \section{Análise dos Resultados}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.4.7)  15 APR 2016 00:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.4.7)  15 APR 2016 18:40
 entering extended mode
 **./relatorio_ec2.tex
 (relatorio_ec2.tex
@@ -806,7 +806,7 @@ File: img/plot-normalidade.png Graphic file (type png)
 
 <use img/plot-normalidade.png>
 Package pdftex.def Info: img/plot-normalidade.png used on input line 157.
-(pdftex.def)             Requested size: 360.5963pt x 301.87706pt.
+(pdftex.def)             Requested size: 288.47813pt x 241.50256pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -823,49 +823,82 @@ Underfull \hbox (badness 10000) in paragraph at lines 164--168
 
  []
 
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 169.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 169.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 179.
+(babel)             in language  on input line 176.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 179.
-[4 <./img/plot-normalidade.png>]
+(babel)             in language  on input line 176.
+ [4 <./img/plot-normalidade.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 194--207
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 194--207
+
+ []
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 192.
+(babel)             in language  on input line 210.
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--224
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--224
+
+ []
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 195.
+(babel)             in language  on input line 224.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 197.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 209.
+(babel)             in language  on input line 224.
+[5]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 209.
+(babel)             in language  on input line 227.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 209.
- [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 209.
+(babel)             in language  on input line 229.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 241.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 241.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 241.
+ [6]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 241.
  (relatorio_ec2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 209.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 209.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 241.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 241.
 Package rerunfilecheck Info: File `relatorio_ec2.out' has not changed.
 (rerunfilecheck)             Checksum: 26DAEDDB09F8BD2A57C751D17F147C63;334.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 209.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 241.
  ) 
 Here is how much of TeX's memory you used:
- 8948 strings out of 493622
- 129052 string characters out of 3141215
+ 8967 strings out of 493622
+ 129366 string characters out of 3141215
  257516 words of memory out of 3000000
- 12198 multiletter control sequences out of 15000+200000
+ 12213 multiletter control sequences out of 15000+200000
  10449 words of font info for 38 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 33i,7n,32p,428b,438s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 33i,8n,32p,428b,438s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/
 Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Pro
 gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program
- Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program F
-iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on relatorio_ec2.pdf (5 pages, 117577 bytes).
+ Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program F
+iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program File
+s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files 
+(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on relatorio_ec2.pdf (6 pages, 138680 bytes).
 PDF statistics:
- 112 PDF objects out of 1000 (max. 8388607)
- 26 named destinations out of 1000 (max. 500000)
+ 124 PDF objects out of 1000 (max. 8388607)
+ 27 named destinations out of 1000 (max. 500000)
  59 words of extra memory for PDF output out of 10000 (max. 10000000)
 
