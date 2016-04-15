@@ -57,8 +57,8 @@ pwr.t2n.test(n1 = 13,
              d = 0.8,
              sig.level = 0.05,
              alternative = "two.sided");
-# Com o delta reduzido, a potência também. Obter a quantidade
-# de amostras da engenharia de sistemas para ter uma motência
+# Com o delta reduzido, a potência também cai. Obter a quantidade
+# de amostras da engenharia de sistemas para ter uma potência
 # de 80%.
 pwr.t2n.test(power = 0.8,
              n2 = 28,
