@@ -34,11 +34,11 @@ var.test(bmiEngSis, bmiPpgee, alternitive="two.sided",conf.level=0.95);
 # Como p-value > alpha, a hipótese nula não foi rejeitada. Sendo
 # assim, não se pode falar com certeza que as variâncias não são iguais.
 
-# Test t com variancia igual ou não
+# Test t com variancias iguais
 t.test(bmiEngSis, bmiPpgee,
       alternative = "two.sided",
       mu = 0,
-      var.equal = TRUE, # Mudar aqui pelo resultado do teste
+      var.equal = TRUE,
       conf.level = 0.95);
 #P-Value > alpha não rejeita a hipótese nula.
 
@@ -51,24 +51,18 @@ pwr.t2n.test(n1 = 13,
              d = 1.5,
              sig.level = 0.05,
              alternative = "two.sided");
-# Problema que o delta é alto. Reduzindo delta.
-pwr.t2n.test(n1 = 13,
+#Obter a quantidade de amostras da engenharia de sistemas para ter uma potência
+# de 99%.
+pwr.t2n.test(power = 0.99,
              n2 = 28,
-             d = 0.8,
+             d = 1.5,
              sig.level = 0.05,
              alternative = "two.sided");
-# Com o delta reduzido, a potência também cai. Obter a quantidade
-# de amostras da engenharia de sistemas para ter uma potência
-# de 80%.
-pwr.t2n.test(power = 0.8,
-             n2 = 28,
-             d = 0.8,
+#Obter a quantidade de amostras da ppgee para ter uma potência
+# de 99%.
+pwr.t2n.test(power = 0.99,
+             n1 = 13,
+             d = 1.5,
              sig.level = 0.05,
              alternative = "two.sided");
 
-# Calcular a potência do teste para variância diferente
-power.t.test(n=13,
-             delta=1.5,
-             sd=sd(bmiEngSis),
-             sig.level=0.05,
-             type = "two.sample");

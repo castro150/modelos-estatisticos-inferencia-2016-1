@@ -207,7 +207,7 @@ ratio of variances \newline
 
 \par Como o valor observado de F não pertence à região crítica encontrada pelo \textit{var.test} e o p-value é maior que o nível de significância $\alpha$, então não existem evidências suficientes para rejeitar H0, portanto iremos considerar a igualdade das variâncias e utilizar o teste t para duas amostras.
 
-\section{Projeto experimental}
+\section{Projeto experimental e Análise dos Resultados}
 \label{sec:projeto-experimental}
 Aplicando o teste t bilateral para duas amostras, obtemos o seguinte resultado:
 \newline
@@ -221,21 +221,52 @@ alternative hypothesis: true difference in means is not equal to 0 \newline
 sample estimates: \newline
 mean of x mean of y \newline
  22.52300  24.33903 \newline
+\par O teste de potência, considerando variâncias iguais e o tamanho de efeito $\alpha$=1.5, apresentou o seguinte comportamento:
+\newline
+\newline
+\textit{t test power calculation } \newline
+             n1 = 13 \newline
+             n2 = 28 \newline
+              d = 1.5 \newline
+      sig.level = 0.05 \newline
+          power = 0.9917339 \newline
+    alternative = two.sided \newline
 
-\par Como não sabemos a variância real das populações e consideramos igualdade de variâncias com base nos resultados do teste F, concluímos que não existem evidências suficientes para rejeitar a hipótese nula, portanto podemos considerar igualdade das médias.
-
-\section{Análise dos Resultados}
+\par Com base nesses resultados, concluimos que a probabilidade de ocorrer erro tipo II é de 0.01 aproximadamente. O poder do teste apresentou um valor elevado devido à estimativa do tamanho de efeito inicial. Se tivéssemos estimado $\delta^*$ com um valor menor, obteríamos um poder também menor.
 
 \section{Conclusão}
+A partir da análise do experimento, chegamos à conclusão que as médias dos BMI's dos alunos dos cursos de graduação em  Engenharia de Sistemas e Pós-graduação em Engenharia Elétrica podem ser consideradas iguais, visto que não temos evidências suficientes para rejeitar a hipótese nula proposta.
+\par Mesmo que $n_{1}$ fosse reduzido para 12, ou $n_{2}$ para 25, o poder do teste se manteria inalterado, conforme resultados abaixo:
+\newline
+\newline
+\textit{t test power calculation} \newline
+             n1 = 12.41101 \newline
+             n2 = 28 \newline
+              d = 1.5 \newline
+      sig.level = 0.05 \newline
+          power = 0.99 \newline
+    alternative = two.sided \newline
+\newline
+\textit{t test power calculation} \newline
+             n1 = 13 \newline
+             n2 = 25.60339 \newline
+              d = 1.5 \newline
+      sig.level = 0.05 \newline
+          power = 0.99 \newline
+    alternative = two.sided \newline
+\newline
+\par Algumas possíveis formas de melhorar a qualidade do experimento:
+\begin{itemize}
+\item Melhorar o método de coleta de dados, pois a qualidade dos dados tem impacto direto na qualidade do experimento.
+\end{itemize}
 
-\begin{thebibliography}{7}
+\begin{thebibliography}{6}
 \bibitem{1}{\url{https://github.com/fcampelo/Design-and-Analysis-of-Experiments}}
 \bibitem{2}{Estatística Aplicada e Probabilidade para Engenheiros (4ª edição) - Montgomery}
 \bibitem{3}{A Estatística Básica e Sua Prática (6ª edição) - David S. Moore, William I. Nortz, Michael A. Fligner}
-\bibitem{4}{\url{https://www.youtube.com/watch?v=SacXljL9dKQ&nohtml5=False}}
-\bibitem{5}{\url{https://www.youtube.com/watch?v=TJbnkmiZiRU&nohtml5=False}}
-\bibitem{6}{\url{https://stat.ethz.ch/R-manual/R-devel/library/stats/html/var.test.html}}
-\bibitem{7}{\url{http://ww2.coastal.edu/kingw/statistics/R-tutorials/independent-t.html}}
+\bibitem{4}{\url{https://stat.ethz.ch/R-manual/R-devel/library/stats/html/var.test.html}}
+\bibitem{5}{\url{http://ww2.coastal.edu/kingw/statistics/R-tutorials/independent-t.html}}
+\bibitem{6}{\url{http://www.portalaction.com.br/inferencia/56-teste-para-comparacao-de-duas-variancias-teste-f}}
 \end{thebibliography}		
 		
 \end{document}
