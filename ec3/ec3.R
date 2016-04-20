@@ -38,4 +38,12 @@ boxplot(diffPesos, ylab="Peso (kg)",
         names=c("Diferença"), col = "lightgray",
         main="Diferença dos Pesos Estimados e Medidos");
 
+# qqPlot para testar a normalidade das diferenças entre
+# o peso estimado e o peso medido.
+require("car");
+qqPlot(diffPesos,
+       pch=16,
+       cex=1.5,
+       las=1);
+
 t.test(dados$Peso~dados$Fonte, paired=T, data=aggdata);
