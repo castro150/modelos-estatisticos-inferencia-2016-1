@@ -46,4 +46,52 @@ qqPlot(diffPesos,
        cex=1.5,
        las=1);
 
+#Teste t pariado
 t.test(dados$Peso~dados$Fonte, paired=T, data=aggdata);
+
+#Teste de potência considerando o desvio padrão da populaçao
+#como o desvio padrão da amostra.
+s <- sd(diffPesos);
+power.t.test(n=11,
+             delta=0.5,
+             sd=s,
+             sig.level=0.05,
+             type="paired");
+
+#Parâmetros de plots.
+par(bg = "#dddddd");
+
+#Potência variando tamanho de efeito.
+delta <- 0.5;
+powerBySe <- c(0);
+es <- c(0);
+for (i in seq(1:300)) {
+  powerBySe[i] <- power.t.test(n=11,
+                               delta=delta,
+                               sd=s,
+                               sig.level=0.05,
+                               type="paired")$power;
+  es[i] <- delta;
+  delta <- delta + 0.01;
+}
+plot(es, powerBySe, type="l", lwd=2, las=1,
+     main="Potência por Tamanho de Efeito", xlab="Tamanho de Efeito", ylab="Potência");
+grid(NA,NULL,"white",lwd=2,lty=1);
+
+#Potência variando quantidade de amostras.
+n <- 11;
+powerByN <- c(0);
+ni <- c(0);
+for (i in seq(1:1000)) {
+  powerByN[i] <- power.t.test(n=n,
+                               delta=0.5,
+                               sd=s,
+                               sig.level=0.05,
+                               type="paired")$power;
+  ni[i] <- n;
+  n <- n + 0.5;
+}
+plot(ni, powerByN, type="l", lwd=2, las=1, 
+     main="Potência por Quantidade de Amostras", xlab="Quantidade de Amostras", ylab="Potência");
+grid(NA,NULL,"white",lwd=2,lty=1);
+
