@@ -1,0 +1,130 @@
+---
+title: "Estudo de caso 3: Emparelhamento de dados"
+date: "25 de abril de 2016"
+output:
+  pdf_document:
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#1. Introdução
+
+\quad Uma percepção comum é a de que pessoas tendem a sistematicamente declarar um peso corporal inferior ao valor real. Com base nessa afirmação, investigaremos o viés de relato de peso dos alunos do curso de graduação em Engenharia de Sistemas da UFMG, mediante comparação dos valores estimados pelos estudantes da disciplina com valores aferidos por uma balança digital de uso doméstico.
+
+\quad O experimento realizado utiliza o conceito de emparelhamento de dados, no qual a hipótese a ser testada passa a ser relacionada com a diferença média entre as observações de cada amostra.
+
+#2. Coleta e análise exploratória dos dados
+
+\quad A Tabela 1 contém a amostra de dados coletada, ou seja, os pesos informados pelos alunos da disciplina e os aferidos pela balança, juntamente com um identificador aleatório e único para cada um deles:
+
+(...Tabela 1...)
+
+\quad Os valores dos pesos declarados e medidos foram exibidos no gráfico da Figura 1 para possibilitar uma melhor visualização do comportamento da amostra. O diagrama da Figura 2 retrata a diferença entre esses valores.
+
+```{r}
+#Ler dados de entrada
+dados <- read.table("dados.csv", header=TRUE, sep=",");
+aggdata <- aggregate(dados$Peso~dados$Fonte,data=dados,FUN=mean);
+summary(aggdata);
+
+#Separando
+estimados <- c(0);
+ei <- 1;
+medidos <- c(0);
+mi <- 1;
+for (i in seq(1:22)) {
+  if (dados$Fonte[i] == 'Estimado') {
+    estimados[ei] <- dados$Peso[i];
+    ei <- ei + 1;
+  } else {
+    medidos[mi] <- dados$Peso[i];
+    mi <- mi + 1;
+  }
+}
+
+#Boxplot Pesos Estimados e Medidos em Balança
+boxplot(estimados, medidos, ylab="Peso (kg)",
+        names=c("Estimados","Medidos"), col = "lightgray",
+        main="Pesos Estimados e Medidos em Balança");
+```
+                        Figura 1:Pesos estimados e medidos
+                        
+```{r}
+#Boxplot Diferença dos Pesos Estimados e Medidos
+diffPesos <- estimados - medidos;
+boxplot(diffPesos, ylab="Peso (kg)",
+        names=c("Diferença"), col = "lightgray",
+        main="Diferença dos Pesos Estimados e Medidos")
+```
+                Figura 2: Diferença dos pesos estimados e medidos
+
+\quad De acordo com o Teorema do Limite Central, se a amostra tiver tamanho n suficiente, a distribuição amostral de $\bar{x}$ é aproximadamente Normal. Nesse caso, iremos assumir que n é suficiente, como será apresentado na seção de "Premissas do teste" deste relatório, verificamos esta premissa através do gráfico de normalidade presente na figura ??.
+
+#3. Estratégia de Inferência
+
+\quad O processo de inferência estatística consiste em tirar conclusões sobre uma população com base em informações extraídas de amostras da mesma. No presente estudo de caso, o parâmetro sobre o qual temos interesse é a diferença média entre os pesos medidos e estimados $\mu_{D}$ dos alunos de graduação em Engenharia de Sistemas.
+
+\quad O método se baseia em calcular a diferença entre cada par de pesos estimado e medido de cada aluno, determinar a média dessas diferenças e informar se essa média é estatisticamente significativa. Podemos utilizar o método de inferência para uma única amostra, visto que temos apenas duas observações de uma mesma amostra, as quais serão pareadas.
+
+###Parâmetros necessários
+
+* O nível de significância ($\alpha$), representa a probabilidade de erro tipo I, ou seja, a probabilidade de rejeitarmos a hipótese nula quando ela é efetivamente verdadeira. Pensando em uma taxa de erro aceitável para o domínio do problema, fixamos $\alpha$ = 0.05.
+
+* $\beta$ representa a probabilidade de erro tipo II, ou seja, aceitarmos a hipótese nula quando ela é efetivamente falsa. Resolvemos permitir um erro tipo II de 20% ($\beta$ = 0.2), considerando que esse tipo de erro tem menor impacto negativo do que o erro tipo I.
+
+* O Nível de confiança (1 − $\alpha$) tem como objetivo conhecer o quanto o teste de hipóteses controla um erro do tipo I, ou qual a probabilidade de aceitar a hipótese nula se realmente for verdadeira.
+
+* O poder do teste (1 − $\beta$) tem como objetivo conhecer o quanto o teste de hipóteses controla um erro do tipo II ou, qual a probabilidade de rejeitar a hipótese nula se a mesma realmente for falsa.
+
+* O menor tamanho de efeito de importância prática ($\delta^{*}$) como 0.5, considerando o peso médio das roupas e um erro de precisão aceitável para a balança.
+
+###Hipóteses de Teste
+
+\quad O teste estatístico é planejado para avaliar a força da evidência **contra** a hipótese nula $H_{0}$. Usualmente, a hipótese nula é uma afirmativa de ”nenhum efeito”. A afirmativa sobre a população a **favor** da qual estamos tentando achar evidência é a hipótese alternativa $H_{1}$. Logo, as hipóteses são:
+
+* $H_0$ : $\mu_{D}$ = 0
+
+* $H_1$ : $\mu_{D}$ $\neq$ 0
+
+\quad Com a formulação acima, vemos que nossa população de interesse corresponde à diferença entre os pesos estimados e medidos dos alunos de Engenharia de Sistemas, sendo $\mu_{D}$ a diferença média e o nosso parâmetro de interesse.
+
+###Premissas do teste
+
+\quad Antes da realização do teste temos que apresentar as seguintes premissas com relação ao mesmo.
+
+1. Os dados formam uma distribuição normal com média $\mu$ e variância $\sigma^{2}$;
+2. O desvio padrão de cada população é desconhecido;
+
+#4. Projeto experimental e Análise dos Resultados
+
+\quad Com as hipóteses definidas, assim como a população e seu parâmetro de interesse, devemos apresentar o tipo de teste de hipótese a ser utilizado para que a análise dos resultados possa ser feita corretamente.
+
+\quad O problema consiste na análise das estimações e das medidas dos pesos, ambas feitas no mesmo indivíduo, portanto, como se trata de um experimento pareado, utilizaremos o teste t pareado para concluir a investigação citada na introdução, o que é o objetivo deste trabalho.
+
+\quad Outra motivação para o uso desse teste é que, neste caso, ao contrário do teste t para duas amostras, o teste t pareado pode obter maior poder estatístico, pois não está sujeito a variação adicional causada pela independência das observações, afinal as observações pareadas são dependentes.
+
+\quad Ao rodar o teste t pareado no R, obtemos o seguinte resultado:
+
+```{r}
+#Teste t pareado
+t.test(dados$Peso~dados$Fonte, paired=T, data=aggdata)
+```
+
+#5. Conclusão
+
+#6. Referências
+
+[1] https://github.com/fcampelo/Design-and-Analysis-of-Experiments
+
+[2] Estatística Aplicada e Probabilidade para Engenheiros (4a edição) - Montgomery
+
+[3] A Estatística Básica e Sua Prática (6a edição) - David S. Moore, William I. Nortz, Michael A. Fligner
+
+[4] https://stat.ethz.ch/R-manual/R-devel/library/stats/html/var.test.html
+
+[5] http://ww2.coastal.edu/kingw/statistics/R-tutorials/independent-t.html
+
+[6] http://www.portalaction.com.br/inferencia/56-teste-para-comparacao-de-duas-variancias-teste-f
