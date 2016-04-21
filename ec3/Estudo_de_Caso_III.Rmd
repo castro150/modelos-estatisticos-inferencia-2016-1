@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 \quad A Tabela 1 contém a amostra de dados coletada, ou seja, os pesos informados pelos alunos da disciplina e os aferidos pela balança, juntamente com um identificador aleatório e único para cada um deles:
 
-(...Tabela 1...)
+![Tabela de Amostras](table.png)
 
 \quad Os valores dos pesos declarados e medidos foram exibidos no gráfico da Figura 1 para possibilitar uma melhor visualização do comportamento da amostra. O diagrama da Figura 2 retrata a diferença entre esses valores.
 
@@ -61,7 +61,15 @@ boxplot(diffPesos, ylab="Peso (kg)",
 ```
                 Figura 2: Diferença dos pesos estimados e medidos
 
-\quad De acordo com o Teorema do Limite Central, se a amostra tiver tamanho n suficiente, a distribuição amostral de $\bar{x}$ é aproximadamente Normal. Nesse caso, iremos assumir que n é suficiente, como será apresentado na seção de "Premissas do teste" deste relatório, verificamos esta premissa através do gráfico de normalidade presente na figura ??.
+\quad De acordo com o Teorema do Limite Central, se a amostra tiver tamanho n suficiente, a distribuição amostral de $\bar{x}$ é aproximadamente Normal. Nesse caso, iremos assumir que n é suficiente, como será apresentado na seção de "Premissas do teste" deste relatório, verificamos esta premissa através do gráfico de normalidade presente na figura 3.
+
+```{r}
+# qqPlot para testar a normalidade das diferenças entre
+# o peso estimado e o peso medido.
+require("car");
+qqPlot(diffPesos, pch=16, cex=1.5, las=1, main="Normalidade da diferença dos dados");
+```
+              Figura 3: Normalidade da diferença dos dados
 
 #3. Estratégia de Inferência
 
@@ -112,8 +120,76 @@ boxplot(diffPesos, ylab="Peso (kg)",
 #Teste t pareado
 t.test(dados$Peso~dados$Fonte, paired=T, data=aggdata)
 ```
+\quad Analisando o resultado a cima, podemos notar que o valor de t obtido se encontra dentro do intervalo de confiança e o valor p é maior do que $\alpha$. Portanto, não podemos rejeitar nossa hipótese nula.
+
+\quad O teste de potência considerando o desvio padrão da população como o desvio da amostra apresenta o seguinte resultado:
+
+```{r}
+#Teste de potência
+s <- sd(diffPesos);
+power.t.test(n=11,
+             delta=0.5,
+             sd=s,
+             sig.level=0.05,
+             type="paired");
+```
+
+\quad Dessa forma, o teste apresentou uma potência, significativamente baixa, de 9\%. Esse valor é consequência da escolha do tamanho de efeito e do tamanho da amostra.
 
 #5. Conclusão
+
+\quad Com base nos resultados estamos 95% confiantes que a diferença média de peso está entre -1.739 e 1.43. Sendo assim, não temos evidências suficientes para afirmar que os alunos do curso de Engenharia de Sistemas tendem a informar peso menor que o real.
+
+\quad Como forma de descobrir quais seriam os parâmetros ideais para a obtenção de uma potência de teste de 80\%, fizemos dois gráficos nos quais variamos o tamanho de efeito, ou o tamanho da amostra, versus a potência em cada um dos casos. As figuras 4 e 5 exibem esses resultados.
+
+```{r}
+#Parâmetros de plots.
+par(bg = "#dddddd");
+
+#Potência variando tamanho de efeito.
+delta <- 0.5;
+powerBySe <- c(0);
+es <- c(0);
+for (i in seq(1:300)) {
+  powerBySe[i] <- power.t.test(n=11,
+                               delta=delta,
+                               sd=s,
+                               sig.level=0.05,
+                               type="paired")$power;
+  es[i] <- delta;
+  delta <- delta + 0.01;
+}
+plot(es, powerBySe, type="l", lwd=2, las=1,
+     main="Potência por Tamanho de Efeito", xlab="Tamanho de Efeito", ylab="Potência");
+grid(NA,NULL,"white",lwd=2,lty=1);
+```
+              Figura 4: Potência x Tamanho de Efeito
+```{r}
+#Potência variando quantidade de amostras.
+n <- 11;
+powerByN <- c(0);
+ni <- c(0);
+for (i in seq(1:1000)) {
+  powerByN[i] <- power.t.test(n=n,
+                               delta=0.5,
+                               sd=s,
+                               sig.level=0.05,
+                               type="paired")$power;
+  ni[i] <- n;
+  n <- n + 0.5;
+}
+plot(ni, powerByN, type="l", lwd=2, las=1, 
+     main="Potência por Tamanho da Amostra", xlab="Tamanho da Amostra", ylab="Potência");
+grid(NA,NULL,"white",lwd=2,lty=1);
+```
+              Figura 5: Potência x Tamanho da Amostra
+              
+\quad Sendo assim, uma potência de 80\% seria garantida se: mantivéssemos o tamanho da amostra fixo (n=11) e mudássemos o tamanho de efeito para, aproximadamente, 2.2; ou mantivéssemos o tamanho de efeito fixo ($\delta^{*}$ = 0.5) e mudássemos o tamanho da amostra para, aproximadamente, 180.
+
+\quad Algumas formas de melhorar a qualidade do experimento seriam:
+
+* Aumentar o número de amostras coletadas;
+* Aumentar o tamanho das amostras.
 
 #6. Referências
 
@@ -128,3 +204,11 @@ t.test(dados$Peso~dados$Fonte, paired=T, data=aggdata)
 [5] http://ww2.coastal.edu/kingw/statistics/R-tutorials/independent-t.html
 
 [6] http://www.portalaction.com.br/inferencia/56-teste-para-comparacao-de-duas-variancias-teste-f
+
+[7] http://support.minitab.com/pt-br/minitab/17/topic-library/basic-statistics-and-graphs/hypothesis-tests/tests-of-means/why-use-paired-t/
+
+[8] http://www.portalaction.com.br/inferencia/58-teste-t-pareado
+
+[9] http://www.r-bloggers.com/paired-students-t-test/
+
+[10] http://www.statmethods.net/stats/power.html

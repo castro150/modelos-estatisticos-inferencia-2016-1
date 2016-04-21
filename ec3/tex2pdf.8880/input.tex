@@ -1,0 +1,492 @@
+\documentclass[]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+% Set line spacing
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{{#1}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{{#1}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\ErrorTok}[1]{\textbf{{#1}}}
+\newcommand{\NormalTok}[1]{{#1}}
+\usepackage{graphicx}
+% Redefine \includegraphics so that, unless explicit options are
+% given, the image width will not exceed the width of the page.
+% Images get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\ScaleIfNeeded{%
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+{%
+ \catcode`\@=11\relax%
+ \gdef\includegraphics{\@ifnextchar[{\Oldincludegraphics}{\Oldincludegraphics[width=\ScaleIfNeeded]}}%
+}%
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Estudo de caso 3: Emparelhamento de dados},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+\setlength{\droptitle}{-2em}
+  \title{Estudo de caso 3: Emparelhamento de dados}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{}
+  \preauthor{}\postauthor{}
+  \predate{\centering\large\emph}
+  \postdate{\par}
+  \date{25 de abril de 2016}
+
+
+
+
+\begin{document}
+
+\maketitle
+
+
+\section{1. Introdução}\label{introducao}
+
+\quad Uma percepção comum é a de que pessoas tendem a sistematicamente
+declarar um peso corporal inferior ao valor real. Com base nessa
+afirmação, investigaremos o viés de relato de peso dos alunos do curso
+de graduação em Engenharia de Sistemas da UFMG, mediante comparação dos
+valores estimados pelos estudantes da disciplina com valores aferidos
+por uma balança digital de uso doméstico.
+
+\quad O experimento realizado utiliza o conceito de emparelhamento de
+dados, no qual a hipótese a ser testada passa a ser relacionada com a
+diferença média entre as observações de cada amostra.
+
+\section{2. Coleta e análise exploratória dos
+dados}\label{coleta-e-analise-exploratoria-dos-dados}
+
+\quad A Tabela 1 contém a amostra de dados coletada, ou seja, os pesos
+informados pelos alunos da disciplina e os aferidos pela balança,
+juntamente com um identificador aleatório e único para cada um deles:
+
+{[}Tabela de Amostras{]}{[}scale=0.3{]}(table.png)
+
+\quad Os valores dos pesos declarados e medidos foram exibidos no
+gráfico da Figura 1 para possibilitar uma melhor visualização do
+comportamento da amostra. O diagrama da Figura 2 retrata a diferença
+entre esses valores.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Ler dados de entrada}
+\NormalTok{dados <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"dados.csv"}\NormalTok{, }\DataTypeTok{header=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{sep=}\StringTok{","}\NormalTok{);}
+\NormalTok{aggdata <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(dados$Peso~dados$Fonte,}\DataTypeTok{data=}\NormalTok{dados,}\DataTypeTok{FUN=}\NormalTok{mean);}
+\KeywordTok{summary}\NormalTok{(aggdata);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    dados$Fonte   dados$Peso   
+##  Estimado:1    Min.   :65.80  
+##  Medido  :1    1st Qu.:65.84  
+##                Median :65.88  
+##                Mean   :65.88  
+##                3rd Qu.:65.92  
+##                Max.   :65.95
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Separando}
+\NormalTok{estimados <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{);}
+\NormalTok{ei <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
+\NormalTok{medidos <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{);}
+\NormalTok{mi <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
+\NormalTok{for (i in }\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{:}\DecValTok{22}\NormalTok{)) \{}
+  \NormalTok{if (dados$Fonte[i] ==}\StringTok{ 'Estimado'}\NormalTok{) \{}
+    \NormalTok{estimados[ei] <-}\StringTok{ }\NormalTok{dados$Peso[i];}
+    \NormalTok{ei <-}\StringTok{ }\NormalTok{ei +}\StringTok{ }\DecValTok{1}\NormalTok{;}
+  \NormalTok{\} else \{}
+    \NormalTok{medidos[mi] <-}\StringTok{ }\NormalTok{dados$Peso[i];}
+    \NormalTok{mi <-}\StringTok{ }\NormalTok{mi +}\StringTok{ }\DecValTok{1}\NormalTok{;}
+  \NormalTok{\}}
+\NormalTok{\}}
+
+\CommentTok{#Boxplot Pesos Estimados e Medidos em Balança}
+\KeywordTok{boxplot}\NormalTok{(estimados, medidos, }\DataTypeTok{ylab=}\StringTok{"Peso (kg)"}\NormalTok{,}
+        \DataTypeTok{names=}\KeywordTok{c}\NormalTok{(}\StringTok{"Estimados"}\NormalTok{,}\StringTok{"Medidos"}\NormalTok{), }\DataTypeTok{col =} \StringTok{"lightgray"}\NormalTok{,}
+        \DataTypeTok{main=}\StringTok{"Pesos Estimados e Medidos em Balança"}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_Caso_III_files/figure-latex/unnamed-chunk-1-1.pdf}
+Figura 1:Pesos estimados e medidos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Boxplot Diferença dos Pesos Estimados e Medidos}
+\NormalTok{diffPesos <-}\StringTok{ }\NormalTok{estimados -}\StringTok{ }\NormalTok{medidos;}
+\KeywordTok{boxplot}\NormalTok{(diffPesos, }\DataTypeTok{ylab=}\StringTok{"Peso (kg)"}\NormalTok{,}
+        \DataTypeTok{names=}\KeywordTok{c}\NormalTok{(}\StringTok{"Diferença"}\NormalTok{), }\DataTypeTok{col =} \StringTok{"lightgray"}\NormalTok{,}
+        \DataTypeTok{main=}\StringTok{"Diferença dos Pesos Estimados e Medidos"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_Caso_III_files/figure-latex/unnamed-chunk-2-1.pdf}
+Figura 2: Diferença dos pesos estimados e medidos
+
+\quad De acordo com o Teorema do Limite Central, se a amostra tiver
+tamanho n suficiente, a distribuição amostral de $\bar{x}$ é
+aproximadamente Normal. Nesse caso, iremos assumir que n é suficiente,
+como será apresentado na seção de ``Premissas do teste'' deste
+relatório, verificamos esta premissa através do gráfico de normalidade
+presente na figura 3.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# qqPlot para testar a normalidade das diferenças entre}
+\CommentTok{# o peso estimado e o peso medido.}
+\KeywordTok{require}\NormalTok{(}\StringTok{"car"}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: car
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'car' was built under R version 3.1.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{qqPlot}\NormalTok{(diffPesos, }\DataTypeTok{pch=}\DecValTok{16}\NormalTok{, }\DataTypeTok{cex=}\FloatTok{1.5}\NormalTok{, }\DataTypeTok{las=}\DecValTok{1}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Normalidade da diferença dos dados"}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_Caso_III_files/figure-latex/unnamed-chunk-3-1.pdf}
+Figura 3: Normalidade da diferença dos dados
+
+\section{3. Estratégia de Inferência}\label{estrategia-de-inferencia}
+
+\quad O processo de inferência estatística consiste em tirar conclusões
+sobre uma população com base em informações extraídas de amostras da
+mesma. No presente estudo de caso, o parâmetro sobre o qual temos
+interesse é a diferença média entre os pesos medidos e estimados
+$\mu_{D}$ dos alunos de graduação em Engenharia de Sistemas.
+
+\quad O método se baseia em calcular a diferença entre cada par de pesos
+estimado e medido de cada aluno, determinar a média dessas diferenças e
+informar se essa média é estatisticamente significativa. Podemos
+utilizar o método de inferência para uma única amostra, visto que temos
+apenas duas observações de uma mesma amostra, as quais serão pareadas.
+
+\subsubsection{Parâmetros necessários}\label{parametros-necessarios}
+
+\begin{itemize}
+\item
+  O nível de significância ($\alpha$), representa a probabilidade de
+  erro tipo I, ou seja, a probabilidade de rejeitarmos a hipótese nula
+  quando ela é efetivamente verdadeira. Pensando em uma taxa de erro
+  aceitável para o domínio do problema, fixamos $\alpha$ = 0.05.
+\item
+  $\beta$ representa a probabilidade de erro tipo II, ou seja,
+  aceitarmos a hipótese nula quando ela é efetivamente falsa. Resolvemos
+  permitir um erro tipo II de 20\% ($\beta$ = 0.2), considerando que
+  esse tipo de erro tem menor impacto negativo do que o erro tipo I.
+\item
+  O Nível de confiança (1 − $\alpha$) tem como objetivo conhecer o
+  quanto o teste de hipóteses controla um erro do tipo I, ou qual a
+  probabilidade de aceitar a hipótese nula se realmente for verdadeira.
+\item
+  O poder do teste (1 − $\beta$) tem como objetivo conhecer o quanto o
+  teste de hipóteses controla um erro do tipo II ou, qual a
+  probabilidade de rejeitar a hipótese nula se a mesma realmente for
+  falsa.
+\item
+  O menor tamanho de efeito de importância prática ($\delta^{*}$) como
+  0.5, considerando o peso médio das roupas e um erro de precisão
+  aceitável para a balança.
+\end{itemize}
+
+\subsubsection{Hipóteses de Teste}\label{hipoteses-de-teste}
+
+\quad O teste estatístico é planejado para avaliar a força da evidência
+\textbf{contra} a hipótese nula $H_{0}$. Usualmente, a hipótese nula é
+uma afirmativa de ''nenhum efeito''. A afirmativa sobre a população a
+\textbf{favor} da qual estamos tentando achar evidência é a hipótese
+alternativa $H_{1}$. Logo, as hipóteses são:
+
+\begin{itemize}
+\item
+  $H_0$ : $\mu_{D}$ = 0
+\item
+  $H_1$ : $\mu_{D}$ $\neq$ 0
+\end{itemize}
+
+\quad Com a formulação acima, vemos que nossa população de interesse
+corresponde à diferença entre os pesos estimados e medidos dos alunos de
+Engenharia de Sistemas, sendo $\mu_{D}$ a diferença média e o nosso
+parâmetro de interesse.
+
+\subsubsection{Premissas do teste}\label{premissas-do-teste}
+
+\quad Antes da realização do teste temos que apresentar as seguintes
+premissas com relação ao mesmo.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Os dados formam uma distribuição normal com média $\mu$ e variância
+  $\sigma^{2}$;
+\item
+  O desvio padrão de cada população é desconhecido;
+\end{enumerate}
+
+\section{4. Projeto experimental e Análise dos
+Resultados}\label{projeto-experimental-e-analise-dos-resultados}
+
+\quad Com as hipóteses definidas, assim como a população e seu parâmetro
+de interesse, devemos apresentar o tipo de teste de hipótese a ser
+utilizado para que a análise dos resultados possa ser feita
+corretamente.
+
+\quad O problema consiste na análise das estimações e das medidas dos
+pesos, ambas feitas no mesmo indivíduo, portanto, como se trata de um
+experimento pareado, utilizaremos o teste t pareado para concluir a
+investigação citada na introdução, o que é o objetivo deste trabalho.
+
+\quad Outra motivação para o uso desse teste é que, neste caso, ao
+contrário do teste t para duas amostras, o teste t pareado pode obter
+maior poder estatístico, pois não está sujeito a variação adicional
+causada pela independência das observações, afinal as observações
+pareadas são dependentes.
+
+\quad Ao rodar o teste t pareado no R, obtemos o seguinte resultado:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Teste t pareado}
+\KeywordTok{t.test}\NormalTok{(dados$Peso~dados$Fonte, }\DataTypeTok{paired=}\NormalTok{T, }\DataTypeTok{data=}\NormalTok{aggdata)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Paired t-test
+## 
+## data:  dados$Peso by dados$Fonte
+## t = -0.2174, df = 10, p-value = 0.8323
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.738752  1.429661
+## sample estimates:
+## mean of the differences 
+##              -0.1545455
+\end{verbatim}
+
+\quad Analisando o resultado a cima, podemos notar que o valor de t
+obtido se encontra dentro do intervalo de confiança e o valor p é maior
+do que $\alpha$. Portanto, não podemos rejeitar nossa hipótese nula.
+
+\quad O teste de potência considerando o desvio padrão da população como
+o desvio da amostra apresenta o seguinte resultado:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Teste de potência}
+\NormalTok{s <-}\StringTok{ }\KeywordTok{sd}\NormalTok{(diffPesos);}
+\KeywordTok{power.t.test}\NormalTok{(}\DataTypeTok{n=}\DecValTok{11}\NormalTok{,}
+             \DataTypeTok{delta=}\FloatTok{0.5}\NormalTok{,}
+             \DataTypeTok{sd=}\NormalTok{s,}
+             \DataTypeTok{sig.level=}\FloatTok{0.05}\NormalTok{,}
+             \DataTypeTok{type=}\StringTok{"paired"}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##      Paired t test power calculation 
+## 
+##               n = 11
+##           delta = 0.5
+##              sd = 2.358119
+##       sig.level = 0.05
+##           power = 0.09313085
+##     alternative = two.sided
+## 
+## NOTE: n is number of *pairs*, sd is std.dev. of *differences* within pairs
+\end{verbatim}
+
+\quad Dessa forma, o teste apresentou uma potência, significativamente
+baixa, de 9\%. Esse valor é consequência da escolha do tamanho de efeito
+e do tamanho da amostra.
+
+\section{5. Conclusão}\label{conclusao}
+
+\quad Com base nos resultados estamos 95\% confiantes que a diferença
+média de peso está entre -1.739 e 1.43. Sendo assim, não temos
+evidências suficientes para afirmar que os alunos do curso de Engenharia
+de Sistemas tendem a informar peso menor que o real.
+
+\quad Como forma de descobrir quais seriam os parâmetros ideais para a
+obtenção de uma potência de teste de 80\%, fizemos dois gráficos nos
+quais variamos o tamanho de efeito, ou o tamanho da amostra, versus a
+potência em cada um dos casos. As figuras 4 e 5 exibem esses resultados.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Parâmetros de plots.}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{bg =} \StringTok{"#dddddd"}\NormalTok{);}
+
+\CommentTok{#Potência variando tamanho de efeito.}
+\NormalTok{delta <-}\StringTok{ }\FloatTok{0.5}\NormalTok{;}
+\NormalTok{powerBySe <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{);}
+\NormalTok{es <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{);}
+\NormalTok{for (i in }\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{:}\DecValTok{300}\NormalTok{)) \{}
+  \NormalTok{powerBySe[i] <-}\StringTok{ }\KeywordTok{power.t.test}\NormalTok{(}\DataTypeTok{n=}\DecValTok{11}\NormalTok{,}
+                               \DataTypeTok{delta=}\NormalTok{delta,}
+                               \DataTypeTok{sd=}\NormalTok{s,}
+                               \DataTypeTok{sig.level=}\FloatTok{0.05}\NormalTok{,}
+                               \DataTypeTok{type=}\StringTok{"paired"}\NormalTok{)$power;}
+  \NormalTok{es[i] <-}\StringTok{ }\NormalTok{delta;}
+  \NormalTok{delta <-}\StringTok{ }\NormalTok{delta +}\StringTok{ }\FloatTok{0.01}\NormalTok{;}
+\NormalTok{\}}
+\KeywordTok{plot}\NormalTok{(es, powerBySe, }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{, }\DataTypeTok{las=}\DecValTok{1}\NormalTok{,}
+     \DataTypeTok{main=}\StringTok{"Potência por Tamanho de Efeito"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"Tamanho de Efeito"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"Potência"}\NormalTok{);}
+\KeywordTok{grid}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\OtherTok{NULL}\NormalTok{,}\StringTok{"white"}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{1}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_Caso_III_files/figure-latex/unnamed-chunk-6-1.pdf}
+Figura 4: Potência x Tamanho de Efeito
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Potência variando quantidade de amostras.}
+\NormalTok{n <-}\StringTok{ }\DecValTok{11}\NormalTok{;}
+\NormalTok{powerByN <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{);}
+\NormalTok{ni <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{);}
+\NormalTok{for (i in }\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{:}\DecValTok{1000}\NormalTok{)) \{}
+  \NormalTok{powerByN[i] <-}\StringTok{ }\KeywordTok{power.t.test}\NormalTok{(}\DataTypeTok{n=}\NormalTok{n,}
+                               \DataTypeTok{delta=}\FloatTok{0.5}\NormalTok{,}
+                               \DataTypeTok{sd=}\NormalTok{s,}
+                               \DataTypeTok{sig.level=}\FloatTok{0.05}\NormalTok{,}
+                               \DataTypeTok{type=}\StringTok{"paired"}\NormalTok{)$power;}
+  \NormalTok{ni[i] <-}\StringTok{ }\NormalTok{n;}
+  \NormalTok{n <-}\StringTok{ }\NormalTok{n +}\StringTok{ }\FloatTok{0.5}\NormalTok{;}
+\NormalTok{\}}
+\KeywordTok{plot}\NormalTok{(ni, powerByN, }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{, }\DataTypeTok{las=}\DecValTok{1}\NormalTok{, }
+     \DataTypeTok{main=}\StringTok{"Potência por Tamanho da Amostra"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"Tamanho da Amostra"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"Potência"}\NormalTok{);}
+\KeywordTok{grid}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\OtherTok{NULL}\NormalTok{,}\StringTok{"white"}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{1}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_Caso_III_files/figure-latex/unnamed-chunk-7-1.pdf}
+Figura 5: Potência x Tamanho da Amostra
+
+\quad Sendo assim, uma potência de 80\% seria garantida se:
+mantivéssemos o tamanho da amostra fixo (n=11) e mudássemos o tamanho de
+efeito para, aproximadamente, 2.2; ou mantivéssemos o tamanho de efeito
+fixo ($\delta^{*}$ = 0.5) e mudássemos o tamanho da amostra para,
+aproximadamente, 180.
+
+\quad Algumas formas de melhorar a qualidade do experimento seriam:
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Aumentar o número de amostras coletadas;
+\item
+  Aumentar o tamanho das amostras.
+\end{itemize}
+
+\section{6. Referências}\label{referencias}
+
+{[}1{]}
+\url{https://github.com/fcampelo/Design-and-Analysis-of-Experiments}
+
+{[}2{]} Estatística Aplicada e Probabilidade para Engenheiros (4a
+edição) - Montgomery
+
+{[}3{]} A Estatística Básica e Sua Prática (6a edição) - David S. Moore,
+William I. Nortz, Michael A. Fligner
+
+{[}4{]}
+\url{https://stat.ethz.ch/R-manual/R-devel/library/stats/html/var.test.html}
+
+{[}5{]}
+\url{http://ww2.coastal.edu/kingw/statistics/R-tutorials/independent-t.html}
+
+{[}6{]}
+\url{http://www.portalaction.com.br/inferencia/56-teste-para-comparacao-de-duas-variancias-teste-f}
+
+{[}7{]}
+\url{http://support.minitab.com/pt-br/minitab/17/topic-library/basic-statistics-and-graphs/hypothesis-tests/tests-of-means/why-use-paired-t/}
+
+{[}8{]}
+\url{http://www.portalaction.com.br/inferencia/58-teste-t-pareado}
+
+{[}9{]} \url{http://www.r-bloggers.com/paired-students-t-test/}
+
+{[}10{]} \url{http://www.statmethods.net/stats/power.html}
+
+\end{document}

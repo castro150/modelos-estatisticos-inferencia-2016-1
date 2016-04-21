@@ -41,12 +41,9 @@ boxplot(diffPesos, ylab="Peso (kg)",
 # qqPlot para testar a normalidade das diferenças entre
 # o peso estimado e o peso medido.
 require("car");
-qqPlot(diffPesos,
-       pch=16,
-       cex=1.5,
-       las=1);
+qqPlot(diffPesos, pch=16, cex=1.5, las=1, main="Normalidade da diferença dos dados");
 
-#Teste t pariado
+#Teste t pareado
 t.test(dados$Peso~dados$Fonte, paired=T, data=aggdata);
 
 #Teste de potência considerando o desvio padrão da populaçao
@@ -92,6 +89,6 @@ for (i in seq(1:1000)) {
   n <- n + 0.5;
 }
 plot(ni, powerByN, type="l", lwd=2, las=1, 
-     main="Potência por Quantidade de Amostras", xlab="Quantidade de Amostras", ylab="Potência");
+     main="Potência por Tamanho da Amostra", xlab="Tamanho da Amostra", ylab="Potência");
 grid(NA,NULL,"white",lwd=2,lty=1);
 
