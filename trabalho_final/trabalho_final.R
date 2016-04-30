@@ -32,6 +32,7 @@ fbest1 <- c(0);
 fbest2 <- c(0);
 fbest3 <- c(0);
 fbest4 <- c(0);
+j <- 1;
 for (i in seq(1:30)){
   out1 <- ExpDE(popsize1, mutpars1, recpars1, selpars, stopcrit, probpars);
   fbest1[i] <- out1$Fbest;
@@ -42,6 +43,9 @@ for (i in seq(1:30)){
   out4 <- ExpDE(popsize4, mutpars4, recpars4, selpars, stopcrit, probpars);
   fbest4[i] <- out4$Fbest;
 }
+algoritmo <- c(rep("A",30), rep("B",30), rep("C",30), rep("D",30));
+fbest <- c(fbest1, fbest2, fbest3, fbest4);
+dadosColetados <- data.frame(algoritmo, fbest);
 
 # Experimento piloto para definição de n
 # O desvio padrão é em cima de todas as diferenças (deveria ser a média?)
@@ -66,3 +70,9 @@ n2 <- 2;
 while (qf(1 - alpha, a - 1, a*(n2 - 1)) > 
          qf(beta, a - 1, a*(n2 - 1), n*sum(tau^2)/sigma^2)) n2 <- n2 + 1
 
+
+
+# Boxplot
+boxplot(fbest1,fbest2,fbest3,fbest4, ylab="FBest",
+        names=c("Algoritmo 1", "Algoritmo 2", "Algoritmo 3", "Algoritmo 4"), col = "lightgray",
+        main="FBest dos Algoritmos Medidos");
