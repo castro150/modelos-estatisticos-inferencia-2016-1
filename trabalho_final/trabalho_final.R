@@ -76,3 +76,10 @@ while (qf(1 - alpha, a - 1, a*(n2 - 1)) >
 boxplot(fbest1,fbest2,fbest3,fbest4, ylab="FBest",
         names=c("Algoritmo 1", "Algoritmo 2", "Algoritmo 3", "Algoritmo 4"), col = "lightgray",
         main="FBest dos Algoritmos Medidos");
+boxplot(fbest~algoritmo, 
+        data = dadosColetados, 
+        xlab = "Algoritmo",
+        ylab = "Fbest",
+        main = "FBest dos Algoritmos Medidos",
+        pch  = 16,
+        col  = "gray");
