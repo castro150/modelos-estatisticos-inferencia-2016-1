@@ -7,6 +7,8 @@
 #        Thaís Matos Acácio               #
 ###########################################
 
+alpha <- 0.05;
+beta <- 0.15;
 
 library(ExpDE);
 selpars <- list(name = "selection_standard");
@@ -40,4 +42,27 @@ for (i in seq(1:30)){
   out4 <- ExpDE(popsize4, mutpars4, recpars4, selpars, stopcrit, probpars);
   fbest4[i] <- out4$Fbest;
 }
+
+# Experimento piloto para definição de n
+# O desvio padrão é em cima de todas as diferenças (deveria ser a média?)
 expPiloto <- c(fbest1-fbest2,fbest1-fbest3,fbest1-fbest4,fbest2-fbest3,fbest2-fbest4,fbest3-fbest4);
+delta <- sd(expPiloto);
+sigma <- delta*0.25;
+a <- 4;
+tau <- c(-delta*(a - 1)/a, 
+         rep(delta/a, a-1));
+vartau <- var(tau);
+n <- power.anova.test(groups = a, 
+                 between.var = vartau, 
+                 within.var = sigma^2, 
+                 sig.level = alpha, 
+                 power = 1-beta)$n;
+
+# Outra alternativa (ainda não entendi a diferença para explicar)
+tau <- c(-delta/2, 
+         delta/2, 
+         rep(0, a-2));
+n2 <- 2;
+while (qf(1 - alpha, a - 1, a*(n2 - 1)) > 
+         qf(beta, a - 1, a*(n2 - 1), n*sum(tau^2)/sigma^2)) n2 <- n2 + 1
+
