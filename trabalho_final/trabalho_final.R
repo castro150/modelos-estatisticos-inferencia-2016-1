@@ -14,7 +14,7 @@ a <- 4;
 
   #Calculando o tamanho amostral (suficiente)
 library(pwr);
-n <- pwr.anova.test(k = a,f = d, sig.level = alpha, power = 1-beta)
+n <- pwr.anova.test(k = a,f = d, sig.level = alpha, power = 1-beta)$n;
 n <- round(n);
 
 # Calculo de n (limite)
@@ -95,7 +95,7 @@ plot(dunnet_CI);
 
 # Verificando normalidade
 library(car);
-qqPlot(model$residuals, pch=16, cex=1.5, las=1, main="Figura 3: Normalidade dos resíduos");
+qqPlot(model$residuals, pch=16, cex=1.0, las=1, main="Figura 3: Normalidade dos resíduos");
 
 # Verificando homogeneidade
 fligner.test(fbest~algoritmo, data = dadosColetados)
