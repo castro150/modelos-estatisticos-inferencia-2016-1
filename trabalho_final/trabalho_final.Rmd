@@ -1,0 +1,175 @@
+---
+title: "Trabalho Final"
+author: "Gustavo Vieira, Marcus Vinicius, Thais Matos, Rafael Castro"
+date: "04 de maio de 2016"
+output:
+  pdf_document:
+    latex_engine: xelatex
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#1. Introdução
+
+\quad Um pesquisador está interessado em investigar o efeito de diferentes operadores de recombinação no desempenho do algoritmo de evolução diferencial para uma dada classe de problemas. Dessa forma, o fator de impacto é o operador utilizado e o efeito a ser observado é o desempenho.
+
+\quad Considerando quatro operadores de recombinação para o experimento (problema de quatro tratamentos), torna-se necessário utilizar a análise de variância *ANOVA* para comparação das médias em um único problema de teste.
+
+\quad Após a análise do experimento, responderemos perguntas como: *Há alguma diferença no desempenho médio do algoritmo quando equipado com estes diferentes operadores, para o problema de teste utilizado? Caso haja, qual o melhor operador em termos de desempenho médio, e qual a magnitude das diferenças encontradas? Há algum operador que deva ser recomendado em relação aos demais?*
+
+#2. Formulação das hipóteses de teste
+\quad Através da modelagem de efeitos fixos podemos estimar os efeitos dos operadores no algoritmo de evolução diferencial. Os efeitos dos operadores $\tau_{i}$, que representam desvios da média global $\mu$, são variáveis aleatórias. Como os conhecimentos acerca dos tratamentos particulares investigados não são relativamente importantes, testaremos as hipóteses sobre a variabilidade de $\tau_{i}$ e tentaremos estimar essa variabilidade.
+
+\quad Estamos interessados em testar a igualdade das médias dos quatro tratamentos, $\mu_{1}$, $\mu_{2}$, $\mu_{3}$, $\mu_{4}$. Logo, as hipóteses são:
+
+* $H_0$ : $\tau_{i}$ = 0
+
+* $H_1$ : $\tau_{i}$ $\neq$ 0 (para pelo menos um i)
+
+\quad Se a hipótese nula for verdadeira, significa que a mudança dos operadores de recombinação não tem efeito no desempenho médio do algoritmo evolutivo.
+
+#3. Cálculo do tamanho amostral
+\quad O problema nos fornece os dados necessários para o cálculo do tamanho da amostra. É desejado um poder de 0.85 ($1 - \beta = 0.85; \beta = 0.15$) para uma mínima diferença de importância prática $d^{*} = \delta^{*}/\sigma = 0.25$ e um nível de significância $\alpha = 0.05$.
+
+```{r}
+alpha <- 0.05;
+beta <- 0.15;
+d <- 0.25;
+a <- 4;
+
+#Calculando o tamanho amostral (suficiente)
+library(pwr);
+n <- round(pwr.anova.test(k = a,f = d, sig.level = alpha, power = 1-beta)$n)
+
+```
+
+\quad Dessa forma, encontramos um tamanho amostral suficiente para os parâmetros desejados de n = 50.
+
+#4. Coleta e tabulação dos dados
+\quad Realizaremos a comparação dos seguintes operadores de recombinação:
+
+```{r}
+library(ExpDE);
+selpars <- list(name = "selection_standard");
+stopcrit <- list(names = "stop_maxeval", maxevals = 60000, maxiter = 1000);
+probpars <- list(name = "sphere", xmin = -seq(1,20), xmax = 20 + 5 * seq(5, 24));
+
+# Grupo C (Operadores para comparação)
+recpars1 <- list(name = "recombination_blxAlphaBeta", alpha = 0, beta = 0)
+mutpars1 <- list(name = "mutation_rand", f = 4)
+popsize1 <- 200
+recpars2 <- list(name = "recombination_linear")
+mutpars2 <- list(name = "mutation_rand", f = 1.5)
+popsize2 <- 250
+recpars3 <- list(name = "recombination_mmax", lambda = 0.25)
+mutpars3 <- list(name = "mutation_best", f = 4)
+popsize3 <- 375
+recpars4 <- list(name = "recombination_npoint", N = 17)
+mutpars4 <- list(name = "mutation_rand", f = 2.2)
+popsize4 <- 225
+```
+
+\quad Coletamos n observações para cada operador de forma não sequencial, pois buscamos intercalar as observações entre os operadores com o objetivo de evitar o efeito de qualquer variável de ruído que possa influenciar o desempenho do algoritmo.
+
+```{r}
+#Gerando n observações para cada operador
+fbest1 <- c(0);
+fbest2 <- c(0);
+fbest3 <- c(0);
+fbest4 <- c(0);
+for (i in seq(1:n)){
+  out1 <- ExpDE(popsize1, mutpars1, recpars1, selpars, stopcrit, probpars);
+  fbest1[i] <- out1$Fbest;
+  out2 <- ExpDE(popsize2, mutpars2, recpars2, selpars, stopcrit, probpars);
+  fbest2[i] <- out2$Fbest;
+  out3 <- ExpDE(popsize3, mutpars3, recpars3, selpars, stopcrit, probpars);
+  fbest3[i] <- out3$Fbest;
+  out4 <- ExpDE(popsize4, mutpars4, recpars4, selpars, stopcrit, probpars);
+  fbest4[i] <- out4$Fbest;
+}
+algoritmo <- c(rep("A",n), rep("B",n), rep("C",n), rep("D",n));
+fbest <- c(fbest1, fbest2, fbest3, fbest4);
+dadosColetados <- data.frame(algoritmo, fbest);
+summary(dadosColetados);
+```
+
+\quad A distribuição dos dados coletados está representada no gráfico abaixo, o qual deixa claro que há diferença no desempenho do algoritmo de acordo com o operador de recombinação utilizado.
+
+```{r}
+# Boxplot
+boxplot(fbest~algoritmo, 
+        data = dadosColetados, 
+        xlab = "Algoritmo",
+        ylab = "Fbest",
+        main = "FBest dos Algoritmos Medidos",
+        pch  = 16,
+        col  = "gray");
+
+```
+
+#5. Teste das hipóteses
+\quad Utilizando o teste ANOVA, obtemos o seguinte resultado:
+```{r}
+# Teste da hipótese
+model <- aov(fbest~algoritmo, data = dadosColetados);
+summary.aov(model);
+```
+
+\quad Analisando o teste de hipótese podemos ver que o valor p é bastante inferior ao nível de significância $\alpha$. Dessa forma, podemos rejeitar a hipótese nula com 95\% de confiança, o que indica uma diferença entre o desempenho dos operadores de recombinação.
+
+\quad O ANOVA não identifica quais médias são diferentes, portanto precisamos utilizar métodos de comparações múltiplas para este fim.
+
+```{r}
+# All vs. all
+library(multcomp);
+tukey <- glht(model, linfct = mcp(algoritmo = "Tukey"));
+tukey_CI <- confint(tukey, level = 0.95);
+plot(tukey_CI);
+
+# All vs. one
+dadosColetados$algoritmo <- relevel(dadosColetados$algoritmo, ref = "B");
+model2 <- aov(fbest~algoritmo, data = dadosColetados);
+dunnet <- glht(model2, linfct = mcp(algoritmo = "Dunnet"));
+dunnet_CI <- confint(dunnet, level = 0.95);
+plot(dunnet_CI);
+```
+
+#6. Verificação das premissas dos testes
+\quad As premissas dos teste: normalidade, homogeneidade e independência podem ser validadas nos seguintes gráficos:
+```{r}
+# Verificando normalidade
+library(car);
+qqPlot(model$residuals, pch=16, cex=1.5, las=1,
+       main="Figura 3: Normalidade dos resíduos", xlab="norm quantiles",
+       ylab="Residuos");
+
+# Verificando homogeneidade
+fligner.test(fbest~algoritmo, data = dadosColetados)
+
+# Verificando independência
+durbinWatsonTest(model)
+
+```
+
+* A normalidade dos dados pode ser assumida, visto que ocorreram poucas violações da mesma e o tamanho amostral é grande o suficiente para ignorá-los.
+* A homogeneidade pode ser comprovada dado que o valor p encontrado pelo teste é inferior ao nível de significância desejado.
+* O teste de independência não é muito conclusivo, porém a independência dos dados é garantida na aleatoriedade da coleta de dados inicial.
+
+#7. Conclusão
+
+#8. Referências
+
+[1] https://github.com/fcampelo/Design-and-Analysis-of-Experiments
+
+[2] Estatística Aplicada e Probabilidade para Engenheiros (4a edição) - Montgomery
+
+[3] A Estatística Básica e Sua Prática (6a edição) - David S. Moore, William I. Nortz, Michael A. Fligner
+
+[4] http://support.minitab.com/pt-br/minitab/17/topic-library/basic-statistics-and-graphs/hypothesis-tests/tests-of-means/why-use-paired-t/
+  
+[5] http://www.statmethods.net/stats/power.html
+
+[6] http://docslide.com.br/documents/anova-com-r.html
