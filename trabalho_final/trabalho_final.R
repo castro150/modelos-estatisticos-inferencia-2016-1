@@ -12,20 +12,10 @@ beta <- 0.15;
 d <- 0.25;
 a <- 4;
 
-  #Calculando o tamanho amostral (suficiente)
+# Calculando o tamanho amostral (suficiente)
 library(pwr);
 n <- pwr.anova.test(k = a,f = d, sig.level = alpha, power = 1-beta)$n;
-n <- round(n);
-
-# Calculo de n (limite)
-# tau <- c(-d*(a - 1)/a, 
-#          rep(d/a, a-1));
-# vartau <- var(tau);
-# n <- power.anova.test(groups = a, 
-#                  between.var = vartau, 
-#                  within.var = 1, 
-#                  sig.level = alpha, 
-#                  power = 1-beta)$n;
+n <- ceiling(n);
 
 library(ExpDE);
 selpars <- list(name = "selection_standard");
@@ -46,7 +36,7 @@ recpars4 <- list(name = "recombination_npoint", N = 17)
 mutpars4 <- list(name = "mutation_rand", f = 2.2)
 popsize4 <- 225
 
-#Gerando n observações para cada operador
+# Gerando n observações para cada operador
 fbest1 <- c(0);
 fbest2 <- c(0);
 fbest3 <- c(0);
@@ -103,12 +93,3 @@ plot(x = model$fitted.values, y=model$residuals, main="Homogeneidade dos dados",
 
 # Verificando independência
 durbinWatsonTest(model)
- 
-# # Outra alternativa (ainda não entendi a diferença para explicar)
-# Também não entendi esse..kkk
-# tau <- c(-delta/2, 
-#          delta/2, 
-#          rep(0, a-2));
-# n2 <- 2;
-# while (qf(1 - alpha, a - 1, a*(n2 - 1)) > 
-#          qf(beta, a - 1, a*(n2 - 1), n*sum(tau^2)/sigma^2)) n2 <- n2 + 1

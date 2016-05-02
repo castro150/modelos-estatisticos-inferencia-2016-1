@@ -96,7 +96,7 @@ dadosColetados <- data.frame(algoritmo, fbest);
 summary(dadosColetados);
 ```
 
-\quad A distribuição dos dados coletados está representada no gráfico abaixo, o qual deixa claro que há diferença no desempenho do algoritmo de acordo com o operador de recombinação utilizado.
+\quad A distribuição dos dados coletados está representada no gráfico abaixo, o qual mostra evidências de que há diferença no desempenho do algoritmo de acordo com o operador de recombinação utilizado.
 
 ```{r}
 # Boxplot
