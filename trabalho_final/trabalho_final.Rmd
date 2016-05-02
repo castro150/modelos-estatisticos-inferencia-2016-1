@@ -118,22 +118,30 @@ model <- aov(fbest~algoritmo, data = dadosColetados);
 summary.aov(model);
 ```
 
-\quad Analisando o teste de hipótese podemos ver que o valor p é bastante inferior ao nível de significância $\alpha$. Dessa forma, podemos rejeitar a hipótese nula com 95\% de confiança, o que indica uma diferença entre o desempenho dos operadores de recombinação.
+\quad Analisando o teste de hipótese podemos ver que o valor p é bastante inferior ao nível de significância $\alpha$. Dessa forma, podemos rejeitar a hipótese nula, em favor da alternativa, com 95\% de confiança. Esse resultado indica uma diferença entre o desempenho dos operadores de recombinação.
 
-\quad O ANOVA não identifica quais médias são diferentes, portanto precisamos utilizar métodos de comparações múltiplas para este fim.
+\quad O ANOVA não identifica quais médias são diferentes, portanto precisamos utilizar métodos de comparações múltiplas para este fim. Basicamente, faremos uma série de t-testes para saber como cada um dor operadores difere dos demais.
+
+*All vs. All - Tukey's Honest Significant Difference*
 
 ```{r}
 # All vs. all
 library(multcomp);
 tukey <- glht(model, linfct = mcp(algoritmo = "Tukey"));
 tukey_CI <- confint(tukey, level = 0.95);
+summary(tukey_CI);
 plot(tukey_CI);
+```
 
+*All vs. One - Dunnett's test*
+
+```{r}
 # All vs. one
 dadosColetados$algoritmo <- relevel(dadosColetados$algoritmo, ref = "B");
 model2 <- aov(fbest~algoritmo, data = dadosColetados);
 dunnet <- glht(model2, linfct = mcp(algoritmo = "Dunnet"));
 dunnet_CI <- confint(dunnet, level = 0.95);
+summary(dunnet_CI);
 plot(dunnet_CI);
 ```
 
@@ -142,9 +150,14 @@ plot(dunnet_CI);
 ```{r}
 # Verificando normalidade
 library(car);
-qqPlot(model$residuals, pch=16, cex=1.5, las=1,
-       main="Figura 3: Normalidade dos resíduos", xlab="norm quantiles",
-       ylab="Residuos");
+residuals1 <- fbest1 - mean(fbest1);
+residuals2 <- fbest2 - mean(fbest2);
+residuals3 <- fbest3 - mean(fbest3);
+residuals4 <- fbest4 - mean(fbest4);
+qqPlot(residuals1, pch=16, cex=1.0, las=1, main="Normalidade dos resíduos - Algoritmo A");
+qqPlot(residuals2, pch=16, cex=1.0, las=1, main="Normalidade dos resíduos - Algoritmo B");
+qqPlot(residuals3, pch=16, cex=1.0, las=1, main="Normalidade dos resíduos - Algoritmo C");
+qqPlot(residuals4, pch=16, cex=1.0, las=1, main="Normalidade dos resíduos - Algoritmo D");
 
 # Verificando homogeneidade
 fligner.test(fbest~algoritmo, data = dadosColetados)
@@ -154,11 +167,15 @@ durbinWatsonTest(model)
 
 ```
 
-* A normalidade dos dados pode ser assumida, visto que ocorreram poucas violações da mesma e o tamanho amostral é grande o suficiente para ignorá-los.
+* A normalidade dos dados pode ser assumida, visto que ocorreram poucase pequenas violações do limite, de acordo com o gráfico de simulação.
 * A homogeneidade pode ser comprovada dado que o valor p encontrado pelo teste é inferior ao nível de significância desejado.
 * O teste de independência não é muito conclusivo, porém a independência dos dados é garantida na aleatoriedade da coleta de dados inicial.
 
 #7. Conclusão
+\quad Conforme os resultados do experimento, podemos concluir que existe uma diferença entre o desempenho médio dos quatro operadores de recombinação. Em termos de desempenho médio, o operador B seria o mais recomendado dentre os operadores testados.
+
+\quad A partir dos resultados do teste de Tukey (all vs. all), pode-se ver as diferenças de magnitude existentes entre os operadores de recombinação, exceto se B (recombination_linear) e D (recombination_npoint) forem comparados entre si, quando a diferença é menos perceptível. Pelo teste de Dunnet(all vs. one), colocando o operador B como referência (controle), podemos concluir que este é mais eficiente que A (recombination_blxAlphaBeta) e C (recombination_mmax), mas possui eficiência bem semelhante ao algoritmo D. Assim, pelos nossos testes, não podemos inferir uma diferença significativa entre os algoritmos B e D, mas podemos concluir que ambos são mais eficientes que A e C.
+\quad Para melhorar o experimento, poderia ser considerado um tamanho de amostras n limite, ao invés de suficiente.
 
 #8. Referências
 

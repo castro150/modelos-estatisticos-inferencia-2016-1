@@ -74,6 +74,7 @@ plot(model);
 library(multcomp);
 tukey <- glht(model, linfct = mcp(algoritmo = "Tukey"));
 tukey_CI <- confint(tukey, level = 0.95);
+summary(tukey_CI);
 plot(tukey_CI);
 
 # All vs. one
@@ -81,11 +82,12 @@ dadosColetados$algoritmo <- relevel(dadosColetados$algoritmo, ref = "B");
 model2 <- aov(fbest~algoritmo, data = dadosColetados);
 dunnet <- glht(model2, linfct = mcp(algoritmo = "Dunnet"));
 dunnet_CI <- confint(dunnet, level = 0.95);
+summary(dunnet_CI);
 plot(dunnet_CI);
 
 # Verificando normalidade
 library(car);
-qqPlot(model$residuals, pch=16, cex=1.0, las=1, main="Figura 3: Normalidade dos resíduos");
+#qqPlot(model$residuals, pch=16, cex=1.0, las=1, main="Figura 3: Normalidade dos resíduos");
 residuals1 <- fbest1 - mean(fbest1);
 residuals2 <- fbest2 - mean(fbest2);
 residuals3 <- fbest3 - mean(fbest3);
