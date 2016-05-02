@@ -86,6 +86,14 @@ plot(dunnet_CI);
 # Verificando normalidade
 library(car);
 qqPlot(model$residuals, pch=16, cex=1.0, las=1, main="Figura 3: Normalidade dos resíduos");
+residuals1 <- fbest1 - mean(fbest1);
+residuals2 <- fbest2 - mean(fbest2);
+residuals3 <- fbest3 - mean(fbest3);
+residuals4 <- fbest4 - mean(fbest4);
+qqPlot(residuals1, pch=16, cex=1.0, las=1, main="Normalidade dos resíduos - Algoritmo A");
+qqPlot(residuals2, pch=16, cex=1.0, las=1, main="Normalidade dos resíduos - Algoritmo B");
+qqPlot(residuals3, pch=16, cex=1.0, las=1, main="Normalidade dos resíduos - Algoritmo C");
+qqPlot(residuals4, pch=16, cex=1.0, las=1, main="Normalidade dos resíduos - Algoritmo D");
 
 # Verificando homogeneidade
 fligner.test(fbest~algoritmo, data = dadosColetados)
