@@ -87,7 +87,7 @@ plot(dunnet_CI);
 
 # Verificando normalidade
 library(car);
-#qqPlot(model$residuals, pch=16, cex=1.0, las=1, main="Figura 3: Normalidade dos resíduos");
+qqPlot(model$residuals, pch=16, cex=1.0, las=1, main="Figura 3: Normalidade dos resíduos");
 residuals1 <- fbest1 - mean(fbest1);
 residuals2 <- fbest2 - mean(fbest2);
 residuals3 <- fbest3 - mean(fbest3);

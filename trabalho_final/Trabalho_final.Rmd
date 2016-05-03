@@ -44,11 +44,12 @@ a <- 4;
 
 #Calculando o tamanho amostral (suficiente)
 library(pwr);
-n <- round(pwr.anova.test(k = a,f = d, sig.level = alpha, power = 1-beta)$n)
+n <- pwr.anova.test(k = a,f = d, sig.level = alpha, power = 1-beta)$n;
+n <- ceiling(n);
 
 ```
 
-\quad Dessa forma, encontramos um tamanho amostral suficiente para os parâmetros desejados de n = 50.
+\quad Dessa forma, encontramos um tamanho amostral suficiente para os parâmetros desejados de n = 51.
 
 #4. Coleta e tabulação dos dados
 
@@ -155,6 +156,7 @@ plot(dunnet_CI);
 ```{r}
 # Verificando normalidade
 library(car);
+qqPlot(model$residuals, pch=16, cex=1.0, las=1, main="Figura 3: Normalidade dos resíduos");
 residuals1 <- fbest1 - mean(fbest1);
 residuals2 <- fbest2 - mean(fbest2);
 residuals3 <- fbest3 - mean(fbest3);
